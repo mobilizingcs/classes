@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="css/editclass.css">
 
 	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -31,7 +32,7 @@
 			<div class="page-header">
 				<button id="print_button" class="pull-right btn btn-default"><span class="glyphicon glyphicon-print"></span> Print Page</button>
 
-				<h1>Class Manager <small id="subtitle"></small></h1>
+				<h1><span id="maintitle">Class Manager</span> <small id="subtitle"></small></h1>
 			</div>
 
 			<div class="col-md-10 col-md-offset-1" id="errordiv"></div>
@@ -44,23 +45,37 @@
 				<div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 0%"></div>
 			</div>
 
-			<div id="class-select">
-				<table class="table" id="usertable">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>First</th>
-							<th>Last</th>
-							<th>Username</th>
-							<th>Role</th>
-							<th>Activation Password</th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
-			</div>
+			<!-- <h4> Campaigns </h4> -->
+			<table class="table table-bordered" id="campaigntable">
+				<thead>
+					<tr>
+						<th>Campaign</th>
+						<th>Created</th>
+						<th>Classes</th>
+						<th>Responses</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+
+			<!-- <h4> Users </h4> -->	
+			<table class="table" id="usertable">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>First</th>
+						<th>Last</th>
+						<th>Username</th>
+						<th>Role</th>
+						<th>Activation Password</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+
 		</div>
 	</div>
 

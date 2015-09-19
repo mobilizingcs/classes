@@ -118,7 +118,7 @@ $(function(){
 	}
 
 	//initial table population
-	function buildtable(){
+	function buildusertable(){
 		$("#usertable tbody").empty();
 		$(".progress-bar").css("width", "0%")
 		$(".progress").show();
@@ -127,6 +127,8 @@ $(function(){
 			class_urn_list : urn
 		}).done(function(classlist){
 			classdata = classlist[urn];
+			$("#maintitle").text(classdata.name);
+			$("#subtitle").text(classdata.role);
 			oh.user.read({
 				user_list : Object.keys(classdata.users).toString()
 			}).done(function(userlist){
@@ -184,6 +186,50 @@ $(function(){
 		});
 	}
 
+	function buildcampaigntable(){
+		oh.campaign.readall({
+			class_urn_list : urn
+		}).done(function(campaignlist){
+			//add row for each campaign
+			$.each(campaignlist, function(campaign_urn, campaigndata){
+				var count;
+				var mytr = $("<tr />").appendTo("#campaigntable tbody");
+				td(campaigndata["name"]).appendTo(mytr);
+				td(campaigndata["creation_timestamp"]).appendTo(mytr);
+				td(campaigndata["classes"].length).appendTo(mytr);
+				var restd = td("").appendTo(mytr);
+				var deltd = td("").appendTo(mytr);
+
+                oh.survey.count(campaign_urn).done(function(counts){
+                    if(!Object.keys(counts).length){
+                        //no existing responses found
+                        count = 0;
+                    } else {
+                        count = $.map(counts, function(val, key) {
+                            return val[0].count;
+                        }).reduce(function(previousValue, currentValue) {
+                            return previousValue + currentValue;
+                        });
+                    }
+                    restd.text(count)
+                });
+
+				//add the deletebutton
+				var delbtn = $('<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete </button>').on("click", function(){
+					if(count && !confirm("Are you sure? This will delete all " + count + " responses!")) return;
+					delbtn.attr("disabled", "disabled");
+					oh.campaign.delete({
+						campaign_urn : campaign_urn
+					}).done(function(){
+						mytr.fadeOut();
+					}).always(function(){
+						delbtn.removeAttr("disabled");
+					});
+				}).appendTo(deltd);
+			});
+		});
+	}
+
 	//data tables widget
 	function initTable(){
 		table = $('#usertable').DataTable( {
@@ -206,9 +252,6 @@ $(function(){
 		}, 200);
 	}
 
-	//find the campaign name
-	$("#subtitle").text(urn)
-
 	//init page
 	oh.user.whoami().done(function(username){
 
@@ -219,7 +262,8 @@ $(function(){
 		});
 
 		//get the classes that the user has access to
-		buildtable();
+		buildusertable();
+		buildcampaigntable();
 	});
 
 	$("#randompasswordbtn").click(function(e){
