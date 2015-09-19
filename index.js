@@ -40,9 +40,9 @@ $(function(){
 		td(role || "-").appendTo(mytr);
 
 		var mybtn = $('<a class="btn btn-sm btn-default"><i class="glyphicon glyphicon-edit"></i> Manage</a>')
-		.attr("href", "editclass.html?class=" + urn).appendTo($("<td>").addClass("buttontd").appendTo(mytr));
+		.attr("href", "editclass.html?" + urn).appendTo($("<td>").addClass("buttontd").appendTo(mytr));
 
-		if(role != "privileged"){
+		if(!(role == "privileged" || userdata.permissions.admin)){
 			mybtn.attr("disabled", "disabled");
 			mybtn.click(function(e){
 				e.preventDefault();
@@ -121,7 +121,7 @@ $(function(){
 			class_urn : class_urn, 
 			class_name : class_name
 		}).done(function(){
-			window.location.href = 'editclass.html?class=' + class_urn;
+			window.location.href = 'editclass.html?' + class_urn;
 		}).always(function(){
 			$('#myModal').modal('hide');
 			btn.removeAttr("disabled")
@@ -135,30 +135,36 @@ $(function(){
 		oh.user.read({user:username}).done(function(data){
 			userdata = data[username];
 			$("#subtitle").text(userdata.first_name + " " + userdata.last_name)
-		});
+			if(!(userdata.permissions.admin || userdata.permissions.can_setup_users)){
+				message("You do not have user/setup privileges!")
+			}
+			if(!(userdata.permissions.admin || userdata.permissions.can_create_classes)){
+				message("You do not have class/create privileges!")
+			}			
 
-		//get the classes that the user has access to
-		$("#classtable tbody").empty();
-		oh.class.read({}).done(function(classdata){
-			$.each(classdata, function(urn, value){
-				addrow(urn, value)
-			});
-			initTable();
+			//get the classes that the user has access to
+			$("#classtable tbody").empty();
+			oh.class.read({}).done(function(classdata){
+				$.each(classdata, function(urn, value){
+					addrow(urn, value)
+				});
+				initTable();
 
-			//expand function
-			$('#classtable').on('click', "tbody td:not('.buttontd')", function () {
-				var tr = $(this).parent()
-				var row = table.row(tr);
-				if(tr.attr("role") != "row") return;
-				if ( row.child.isShown() ) {
-					// This row is already open - close it
-					row.child.hide();
-					tr.removeClass('shown');
-				} else {
-					// Open this row
-					row.child( expand(row.data(), tr.data("classdata"))).show();
-					tr.addClass('shown');
-				}
+				//expand function
+				$('#classtable').on('click', "tbody td:not('.buttontd')", function () {
+					var tr = $(this).parent()
+					var row = table.row(tr);
+					if(tr.attr("role") != "row") return;
+					if ( row.child.isShown() ) {
+						// This row is already open - close it
+						row.child.hide();
+						tr.removeClass('shown');
+					} else {
+						// Open this row
+						row.child( expand(row.data(), tr.data("classdata"))).show();
+						tr.addClass('shown');
+					}
+				});
 			});
 		});
 	});
