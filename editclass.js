@@ -120,8 +120,8 @@ $(function(){
 	//initial table population
 	function buildtable(){
 		$("#usertable tbody").empty();
-		$(".progress .bar").css("width", "0%")
-		$(".progress").removeClass("progress-success").show();
+		$(".progress-bar").css("width", "0%")
+		$(".progress").show();
 
 		oh.class.read({
 			class_urn_list : urn
@@ -132,6 +132,7 @@ $(function(){
 			}).done(function(userlist){
 				var requests = [];
 				var n = 0;
+				var m = 0;
 				$.each(userlist, function(id, rec){
 
 					//store role and username in record
@@ -148,6 +149,7 @@ $(function(){
 					}
 
 					//try to lookup the initial password (activation)
+					n++;
 					var req = oh.user.setup({
 						first_name : rec["first_name"],
 						last_name : rec["last_name"],
@@ -160,7 +162,8 @@ $(function(){
 							rec.password = data.password;
 						}
 					}).always(function(){
-						$(".progress .bar").css("width", (n++/Object.keys(userlist).length) * 100 + "%");
+						m++;
+						$(".progress-bar").css("width", (m/n) * 100 + "%");
 						addrow(rec, false);
 					});
 
