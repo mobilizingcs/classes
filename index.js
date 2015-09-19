@@ -100,7 +100,8 @@ $(function(){
 		var x = $(this).val();
 		var org = userdata.organization ? urnify(userdata.organization + ":") : "";
 		var lastname = userdata.last_name ? urnify(userdata.last_name + ":") : "";
-		$("#inputClassUrn").val("urn:class:" + org + lastname + urnify(x));
+		var year = (new Date).getFullYear() + ":";
+		$("#inputClassUrn").val("urn:class:" + org + year + lastname + urnify(x));
 	});
 
 	//validator

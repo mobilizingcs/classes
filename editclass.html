@@ -3,11 +3,11 @@
 <head>
 	<title>Generic Class Manager</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8" /> 
 
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" href="css/app.css">
 
 	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -22,7 +22,6 @@
 
 </head>
 <body>
-
 
 	<!-- Begin page content -->
 	<div class="container">
@@ -41,7 +40,7 @@
 		<div class="row">
 
 			<div id="class-select">
-				<table class="table" id="classtable">
+				<table class="table" id="usertable">
 					<thead>
 						<tr>
 							<th>ID</th>
@@ -49,7 +48,9 @@
 							<th>Last</th>
 							<th>Username</th>
 							<th>Role</th>
-							<th>Initial password</th>
+							<th>Activation Password</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody></tbody>
@@ -69,19 +70,24 @@
 					<div id="class-create">
 						<form>
 							<div class="form-group">
-								<label class="control-label" for="inputClassName">Teacher Password</label>
-								<input class="form-control" id="inputClassName" placeholder="A short name">
+								<label class="control-label" for="yourpassword">Your Password</label>
+								<input class="form-control" type="password" id="yourpassword" placeholder="Your own password for security">
 							</div>
 
 							<div class="form-group">
-								<label class="control-label" for="inputClassUrn">New Student Password</label>
-								<input class="form-control" id="inputClassUrn" placeholder="A unique ID">
+								<label class="control-label" for="newpassword">New User Password</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="newpassword" placeholder="The new password for the user">
+									<span class="input-group-btn">
+										<button class="btn btn-default" id="randompasswordbtn" type="button">Random!</button>
+									</span>
+								</div>
 							</div>
 						</form>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button id="createbutton" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Change </button>
+					<button id="updatepasswordbtn" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Update password</button>
 				</div>
 			</div>
 		</div>
