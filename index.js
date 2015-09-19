@@ -4,6 +4,17 @@ $(function(){
 	var userdata;
 	var table;
 
+    //initiate the client
+    var oh = Ohmage("/app", "campaign-manager")
+
+    //global error handler. In ohmage 200 means unauthenticated
+    oh.callback("error", function(msg, code, req){
+        (code == 200) ? window.location.replace("/#login") : message("<strong>Error! </strong>" + msg);
+    });
+
+    //prevent timeout
+    oh.keepalive();
+
 	function td(x){
 		return($("<td>").text(x).attr("data-value", x || 0));
 	}
@@ -14,7 +25,7 @@ $(function(){
 
 	function first(obj) {
 		for (var a in obj) return a;
-	}	
+	}
 
 	function addrow(urn, classdata){
 		var name = classdata.name;
@@ -99,29 +110,36 @@ $(function(){
 	});
 
 	$("#createbutton").on("click", function createclass(e){
+		var btn = $(this)
 		e.preventDefault();
 		class_name = $("#inputClassName").val();
 		class_urn = $("#inputClassUrn").val();
 
 		//try to create the new class
-		oh.class.create(class_urn, class_name, function(){
-			$('#myModal').modal('hide');
+		btn.attr("disabled", "disabled")
+		oh.class.create({
+			class_urn : class_urn, 
+			class_name : class_name
+		}).done(function(){
 			window.location.href = 'editclass.html?class=' + class_urn;
+		}).always(function(){
+			$('#myModal').modal('hide');
+			btn.removeAttr("disabled")
 		});
 	});
 
 	//init page
-	oh.user.whoami(function(username){
-		oh.keepalive();
+	oh.user.whoami().done(function(username){
 
 		//get the users name and organization
-		oh.user.read(username, function(data){
+		oh.user.read({user:username}).done(function(data){
 			userdata = data[username];
+			$("#subtitle").text(userdata.first_name + " " + userdata.last_name)
 		});
 
 		//get the classes that the user has access to
 		$("#classtable tbody").empty();
-		oh.class.read({}, function(classdata){
+		oh.class.read({}).done(function(classdata){
 			$.each(classdata, function(urn, value){
 				addrow(urn, value)
 			});
