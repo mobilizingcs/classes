@@ -12,7 +12,7 @@ $(function(){
 	//globals
 	var userdata;
 	var table;
-	var user_campaigns;
+	var user_campaigns = [];
 
 	//initiate the client
 	var oh = Ohmage("/app", "campaign-manager")
@@ -202,6 +202,11 @@ $(function(){
 
 	//init page
 	oh.user.whoami().done(function(username){
+
+		//get the user campaigns
+		oh.campaign.read({}).done(function(x){
+			user_campaigns = x;
+		});
 
 		//get the users name and organization
 		oh.user.read({user:username}).done(function(data){
