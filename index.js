@@ -12,6 +12,7 @@ $(function(){
 	//globals
 	var userdata;
 	var table;
+	var user_campaigns;
 
 	//initiate the client
 	var oh = Ohmage("/app", "campaign-manager")
@@ -169,15 +170,23 @@ $(function(){
 			var requests2 = $.map(campaigns, function(val, i){
 				var prettyname = democampaigns[val];
 				var xmlstr = xmlstrings[i];
-				var campaign_urn = class_urn.replace("urn:class", "urn:campaign") + ":" + urnify(val.replace(".xml", ""))
-				return oh.campaign.create({
-					privacy_state : "shared",
-					running_state : "running",
-					class_urn_list : class_urn,
-					campaign_urn : campaign_urn,
-					campaign_name : prettyname,
-					xml : xmlstr
-				});
+				var campaign_urn = class_urn.replace("urn:class", "urn:campaign") + ":" + urnify(val.replace(".xml", ""));
+
+				//create new capaign unless it exists
+				if(user_campaigns.indexOf(campaign_urn) < 0){
+					return oh.campaign.create({
+						privacy_state : "shared",
+						running_state : "running",
+						class_urn_list : class_urn,
+						campaign_urn : campaign_urn,
+						campaign_name : prettyname,
+						xml : xmlstr
+					});
+				} else {
+					return oh.campaign.addClass(campaign_urn, class_urn).done(function(){
+						message("Campaign already exists. Adding class " + class_urn + " to campaign " + campaign_urn, "warning");
+					});
+				}
 			});
 			$.when.apply($, requests2).always(function() {
 				window.location.href = 'editclass.html?' + class_urn;
