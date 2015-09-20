@@ -6,6 +6,28 @@ $(function(){
 	var table;
 	var me;
 
+	//progress bar stuff
+	var n = 0;
+	var m = 0;
+	function updateProgress(){
+		$(".progress-bar").css("width", (m/n) * 100 + "%");
+		if(m < n){
+			$(".progress").show();
+		} else {
+			$(".progress").hide();
+		}	
+	}
+
+	function progressStart(){
+		n++;
+		updateProgress()
+	}
+
+	function progressDone(){
+		m++;
+		updateProgress()
+	}
+
 	//get urn from param
 	var urn = location.search.replace(/^[?]/, "");
 	if(!urn.match(/^urn/)){
@@ -120,9 +142,6 @@ $(function(){
 	//initial table population
 	function buildusertable(){
 		$("#usertable tbody").empty();
-		$(".progress-bar").css("width", "0%")
-		$(".progress").show();
-
 		oh.class.read({
 			class_urn_list : urn
 		}).done(function(classlist){
@@ -133,8 +152,6 @@ $(function(){
 				user_list : Object.keys(classdata.users).toString()
 			}).done(function(userlist){
 				var requests = [];
-				var n = 0;
-				var m = 0;
 				$.each(userlist, function(id, rec){
 
 					//store role and username in record
@@ -151,7 +168,7 @@ $(function(){
 					}
 
 					//try to lookup the initial password (activation)
-					n++;
+					progressStart();
 					var req = oh.user.setup({
 						first_name : rec["first_name"],
 						last_name : rec["last_name"],
@@ -164,8 +181,7 @@ $(function(){
 							rec.password = data.password;
 						}
 					}).always(function(){
-						m++;
-						$(".progress-bar").css("width", (m/n) * 100 + "%");
+						progressDone();
 						addrow(rec, false);
 					});
 
@@ -176,13 +192,13 @@ $(function(){
 				//after all requests are done
 				$.when.apply($, requests).always(function() {
 					initTable();
-					$(".progress").hide();
+					updateProgress()
 				});
-			}).fail(function(){
-				$(".progress").hide();
+			}).always(function(){
+				updateProgress()
 			});
-		}).fail(function(){
-			$(".progress").hide();
+		}).always(function(){
+			updateProgress()
 		});
 	}
 
@@ -200,6 +216,7 @@ $(function(){
 				var restd = td("").appendTo(mytr);
 				var deltd = td("").appendTo(mytr);
 
+				progressStart();
                 oh.survey.count(campaign_urn).done(function(counts){
                     if(!Object.keys(counts).length){
                         //no existing responses found
@@ -212,6 +229,8 @@ $(function(){
                         });
                     }
                     restd.text(count)
+                }).always(function(){
+                	progressDone();
                 });
 
 				//add the deletebutton
