@@ -1,19 +1,28 @@
 $(function(){
 
+	//demo campaigns
+	var democampaigns = {
+		"Snack.xml" : "Snack",
+		"Nutrition.xml" : "Nutrition",
+		"StressChill.xml" : "Stress and Chill",
+		"Trash.xml" : "Trash",
+		"Media.xml" : "Advertisement"
+	};
+
 	//globals
 	var userdata;
 	var table;
 
-    //initiate the client
-    var oh = Ohmage("/app", "campaign-manager")
+	//initiate the client
+	var oh = Ohmage("/app", "campaign-manager")
 
-    //global error handler. In ohmage 200 means unauthenticated
-    oh.callback("error", function(msg, code, req){
-        (code == 200) ? window.location.replace("/#login") : message("<strong>Error! </strong>" + msg);
-    });
+	//global error handler. In ohmage 200 means unauthenticated
+	oh.callback("error", function(msg, code, req){
+		(code == 200) ? window.location.replace("/#login") : message("<strong>Error! </strong>" + msg);
+	});
 
-    //prevent timeout
-    oh.keepalive();
+	//prevent timeout
+	oh.keepalive();
 
 	function td(x){
 		return($("<td>").text(x).attr("data-value", x || 0));
@@ -88,12 +97,16 @@ $(function(){
 	}
 
 	function generateURN(name){
-		"urn:class:" + utf2ascii(name.toLowerCase().replace(/\W/g, ''))
+		"urn:class:" + utf2ascii(name.toLowerCase().replace(/\W/g, ''));
 	}
 
 	function urnify(str){
-		return str.toLowerCase().replace(/\s/g, "_").replace(/[^a-z0-9:_]/gi,'')
-	}	
+		return str.toLowerCase().replace(/\s/g, "_").replace(/[^a-z0-9:_]/gi,'');
+	}
+
+	function idify(str){
+		return str.toLowerCase().replace(/[^a-z0-9]/gi,'');
+	}
 
 	//suggest URN
 	$("#inputClassName").on("keyup", function(){
@@ -113,8 +126,9 @@ $(function(){
 	$("#createbutton").on("click", function createclass(e){
 		var btn = $(this)
 		e.preventDefault();
-		class_name = $("#inputClassName").val();
-		class_urn = $("#inputClassUrn").val();
+		var class_name = $("#inputClassName").val();
+		var class_urn = $("#inputClassUrn").val();
+		var campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});
 
 		//try to create the new class
 		btn.attr("disabled", "disabled")
@@ -122,11 +136,59 @@ $(function(){
 			class_urn : class_urn, 
 			class_name : class_name
 		}).done(function(){
-			window.location.href = 'editclass.html?' + class_urn;
+			//adding campaigns
+			createCampaigns(class_urn, campaigns)
 		}).always(function(){
 			$('#myModal').modal('hide');
 			btn.removeAttr("disabled")
 		});
+	});
+
+	//downloads a campaign.xml file
+	function download_file(url){
+		return $.ajax({
+			url: url,
+			data: {},
+			dataType: "text"
+		}).fail(function() {
+			message("Failed to download: " + url);
+		});
+	}
+
+	function createCampaigns(class_urn, campaigns){
+		//download the xml files
+		var requests = $.map(campaigns, function(xmlfile){
+			return download_file("xml/" + xmlfile);
+		});
+
+		//after all xml files are in
+		$.when.apply($, requests).done(function() {
+			var xmlstrings = $.map(requests, function(x){
+				return x.responseText;
+			});
+			var requests2 = $.map(campaigns, function(val, i){
+				var prettyname = democampaigns[val];
+				var xmlstr = xmlstrings[i];
+				var campaign_urn = class_urn.replace("urn:class", "urn:campaign") + ":" + urnify(val.replace(".xml", ""))
+				return oh.campaign.create({
+					privacy_state : "shared",
+					running_state : "running",
+					class_urn_list : class_urn,
+					campaign_urn : campaign_urn,
+					campaign_name : prettyname,
+					xml : xmlstr
+				});
+			});
+			$.when.apply($, requests2).always(function() {
+				window.location.href = 'editclass.html?' + class_urn;
+			});
+		});
+	}
+
+	//add the democampaigns
+	$.each(democampaigns, function(xml, name){
+		var input = $("<input>").attr("type", "checkbox").attr("value", xml)
+		var label = $("<label />").addClass("checkbox-inline").append(input).append(name).appendTo("#inputDemoCampaigns");
 	});
 
 	//init page
