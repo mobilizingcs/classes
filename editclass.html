@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="//cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" href="css/fileinput.min.css">
 	<link rel="stylesheet" href="css/editclass.css">
 
 	<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -15,7 +16,7 @@
 	<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 	<script src="//cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>
 
-
+	<script src="js/fileinput.min.js"></script>
 	<script src="js/papaparse.min.js"></script>
 	<script src="js/jquery-cookie.js"></script>
 	<script src="js/utf2ascii.js"></script>
@@ -61,6 +62,52 @@
 				</thead>
 				<tbody></tbody>
 			</table>
+		</div>
+		<div class="row">
+	
+			<h3>User Setup</h3>
+			<div class="col-sm-6">
+				<form>
+					<div class="form-group">
+						<input id="input-csv" type="file" class="file" data-show-upload="false" data-show-preview="true">
+					</div>
+				</form>
+			</div>
+
+			<div class="col-sm-6" id="importform">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">ID</label>
+						<div class="col-sm-8">
+							<select class="form-control import_field" id="import_id" disabled></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">First Name</label>
+						<div class="col-sm-8">
+							<select class="form-control import_field" id="import_first_name" disabled></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Last Name</label>
+						<div class="col-sm-8">
+							<select class="form-control import_field" id="import_last_name" disabled></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Autoname prefix</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control import_field" id="import_prefix" disabled value="lausd-">
+						</div>
+					</div>					
+					  <button type="submit" class="btn btn-primary pull-right import_field" disabled>Import Users!</button>
+				</form>
+			</div>
+		</div>
+
+		<br />
+		
+		<div class="row">
 
 			<!-- <h4> Users </h4> -->	
 			<table class="table" id="usertable">

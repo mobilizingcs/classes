@@ -129,6 +129,7 @@ $(function(){
 					new_password : $("#newpassword").val()
 				}).done(function(){
 					pwfield.text("<changed>");
+					mytr.addClass("success");
 				}).always(function(){
 					$('#myModal').modal('hide');
 					btn.removeAttr("disabled")
@@ -296,5 +297,32 @@ $(function(){
 		}).fail(function(){
 			alert("Failed to generate random password.")
 		});
+	});
+
+	//read csv from file (file input is async)
+	function parse_file(file, cb){
+		Papa.parse(file,{
+			header:true, 
+			skipEmptyLines:true,
+			complete: function(results) {
+				if(results.errors.length){
+					message(results.errors)
+				}
+				cb(results);
+			}
+		});
+	}
+
+	$('#input-csv').on('fileloaded', function(event, file, previewId, index, reader) {
+		parse_file(file, function(results){
+			var fields = results.meta.fields;
+			$.each(fields, function(i, field){
+				$("select.import_field").append($("<option />").text(field));						
+			});
+			$(".import_field").removeAttr("disabled");
+		});
+	}).on('fileclear', function(e){
+		$("select.import_field").empty();
+		$(".import_field").attr("disabled", "disabled");
 	});
 });
