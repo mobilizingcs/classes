@@ -287,6 +287,14 @@ function Ohmage(app, client){
 		})
 	}
 
+	//shorthand
+	oh.campaign.removeclass = function(campaign_urn, class_urn){
+		return oh.campaign.update({
+			campaign_urn : campaign_urn,
+			class_list_remove : class_urn
+		})
+	}	
+
 	//@args campaign_urn
 	oh.campaign.delete = function(data){
 		return oh.call("/campaign/delete", data)

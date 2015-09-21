@@ -215,6 +215,7 @@ $(function(){
 				td(campaigndata["creation_timestamp"]).appendTo(mytr);
 				td(campaigndata["classes"].length).appendTo(mytr);
 				var restd = td("").appendTo(mytr);
+				var detachtd = $("<td>").addClass("noprint").appendTo(mytr);
 				var deltd = td("").appendTo(mytr);
 
 				progressStart();
@@ -233,6 +234,15 @@ $(function(){
                 }).always(function(){
                 	progressDone();
                 });
+
+				var detachbtn = $('<button class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-minus"></span> Detach </button>').on("click", function(){
+					detachbtn.attr("disabled", "disabled");
+					oh.campaign.removeclass(campaign_urn, urn).done(function(){
+						mytr.fadeOut();
+					}).always(function(){
+						detachbtn.removeAttr("disabled");
+					});
+				}).appendTo(detachtd);
 
 				//add the deletebutton
 				var delbtn = $('<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Delete </button>').on("click", function(){
