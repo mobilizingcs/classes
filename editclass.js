@@ -100,7 +100,7 @@ $(function(){
 		}
 
 		//only display the initial password if new_account is true
-		if(userdata.permissions.new_account){
+		if(userdata.permissions && userdata.permissions.new_account){
 			pwfield.text(password).data("password", password);
 		} else {
 			pwfield.text("<activated>");
@@ -318,13 +318,82 @@ $(function(){
 		parse_file(file, function(results){
 			importdata = results.data;
 			var fields = results.meta.fields;
+			$("select.import_field").empty();
 			$.each(fields, function(i, field){
 				$("select.import_field").append($("<option />").text(field));						
 			});
 			$(".import_field").removeAttr("disabled");
 		});
 	}).on('fileclear', function(e){
+		importdata = undefined;
 		$("select.import_field").empty();
 		$(".import_field").attr("disabled", "disabled");
+	});
+
+	function validate(x){
+		var val = x.val()
+		if(val){
+			x.removeClass("error");
+			return val;
+		} else {
+			x.addClass("error");
+			throw "invalid value";
+		}
+	}
+
+
+	$("#importbutton").click(function(e){
+		e.preventDefault();
+		var btn = $(this)
+		var id_var = validate($("#import_id"));
+		var first_name_var = validate($("#import_first_name"));
+		var last_name_var = validate($("#import_last_name"));
+		btn.attr("disabled", "disabled")
+		n = 0;
+		m = 0;
+		var new_user_count = 0;
+		var requests = $.map(importdata, function(rec){
+			var first_name = rec[first_name_var];
+			var last_name = rec[last_name_var];
+			var personal_id = rec[id_var];
+			var organization = userdata.organization;
+			progressStart();
+			return oh.user.setup({
+				class_urn_list : urn,
+				first_name : first_name,
+				last_name : last_name,
+				personal_id : personal_id,
+				organization : organization
+			}).done(function(setupdata){
+				progressDone();
+				var newuser = setupdata.username;
+				var password = setupdata.password;
+
+				//existing user
+				if(memberlist.indexOf(newuser) > -1) return;
+
+				//new user
+				new_user_count++;
+				memberlist.push(newuser);
+				addrow({
+					personal_id : personal_id,
+					first_name : first_name,
+					last_name : last_name,
+					organization : organization,
+					password : password,
+					username : newuser,
+					role : "restricted",
+					permissions : {
+						new_account : true
+					}
+				}, true);
+			});
+		});
+
+		//after all requests are done
+		$.when.apply($, requests).always(function() {
+			$('#input-csv').fileinput("clear");
+			message("All done! Added " + new_user_count + " new users.", "success");
+		});
 	});
 });
