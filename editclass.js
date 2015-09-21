@@ -328,6 +328,11 @@ $(function(){
 		importdata = undefined;
 		$("select.import_field").empty();
 		$(".import_field").attr("disabled", "disabled");
+	}).fileinput({
+		allowedFileExtensions: ["csv", "CSV"], 
+		browseLabel : "Select CSV file",
+		showUpload : false,
+		showPreview : true	
 	});
 
 	function validate(x){
