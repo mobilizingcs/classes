@@ -313,8 +313,10 @@ $(function(){
 		});
 	}
 
+	var importdata;
 	$('#input-csv').on('fileloaded', function(event, file, previewId, index, reader) {
 		parse_file(file, function(results){
+			importdata = results.data;
 			var fields = results.meta.fields;
 			$.each(fields, function(i, field){
 				$("select.import_field").append($("<option />").text(field));						
