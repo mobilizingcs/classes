@@ -334,10 +334,12 @@ $(function(){
 				$("select.import_field").append($("<option />").text(field));						
 			});
 			$(".import_field").removeAttr("disabled");
+			$("#importform").show();
 		});
 	}).on('fileclear', function(e){
 		importdata = undefined;
 		$("select.import_field").empty();
+		$("#importform").hide()
 		$(".import_field").attr("disabled", "disabled");
 	}).fileinput({
 		allowedFileExtensions: ["csv", "CSV"], 
@@ -364,6 +366,8 @@ $(function(){
 		var id_var = validate($("#import_id"));
 		var first_name_var = validate($("#import_first_name"));
 		var last_name_var = validate($("#import_last_name"));
+		var organization_var = validate($("#import_organization"));
+		var prefix = $("#import_prefix").val();
 		btn.attr("disabled", "disabled")
 		n = 0;
 		m = 0;
@@ -371,15 +375,16 @@ $(function(){
 		var requests = $.map(importdata, function(rec){
 			var first_name = rec[first_name_var];
 			var last_name = rec[last_name_var];
+			var organization = rec[organization_var];
 			var personal_id = rec[id_var];
-			var organization = userdata.organization;
 			progressStart();
 			return oh.user.setup({
 				class_urn_list : urn,
 				first_name : first_name,
 				last_name : last_name,
 				personal_id : personal_id,
-				organization : organization
+				organization : organization,
+				username_prefix : prefix
 			}).done(function(setupdata){
 				progressDone();
 				var newuser = setupdata.username;
