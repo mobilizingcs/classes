@@ -333,6 +333,7 @@ $(function(){
 			$.each(fields, function(i, field){
 				$("select.import_field").append($("<option />").text(field));						
 			});
+			$("select.import_field").val("");
 			$(".import_field").removeAttr("disabled");
 			$("#importform").show();
 		});
