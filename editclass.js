@@ -147,6 +147,9 @@ $(function(){
 			class_urn_list : urn
 		}).done(function(classlist){
 			classdata = classlist[urn];
+			if(!classdata){
+				alert("Class " + urn + " does not exist!!");
+			}
 			$("#maintitle").text(classdata.name);
 			$("#subtitle").text(classdata.role);
 			oh.user.read({
