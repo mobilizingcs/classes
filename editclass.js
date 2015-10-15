@@ -360,7 +360,6 @@ $(function(){
 		}
 	}
 
-
 	$("#importbutton").click(function(e){
 		e.preventDefault();
 		var btn = $(this)
@@ -416,6 +415,17 @@ $(function(){
 		$.when.apply($, requests).always(function() {
 			$('#input-csv').fileinput("clear");
 			message("All done! Added " + new_user_count + " new users.", "success");
+		});
+	});
+
+	$("#class_delete_button").click(function(e){
+		e.preventDefault();
+		oh.class.delete({
+			class_urn: urn,
+			no_orphan_campaigns: true
+		}).done(function(){
+			alert("Class " + urn + " deleted!");
+			location.replace(".");
 		});
 	});
 });
