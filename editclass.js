@@ -149,6 +149,7 @@ $(function(){
 			classdata = classlist[urn];
 			if(!classdata){
 				alert("Class " + urn + " does not exist!!");
+				location.replace(".");
 			}
 			$("#maintitle").text(classdata.name);
 			$("#subtitle").text(classdata.role);
@@ -422,15 +423,14 @@ $(function(){
 	});
 
 	$("#class_delete_button").click(function(e){
+		if(!confirm("Are you sure you want to delete the class? You cannot undo this.")) return;
 		e.preventDefault();
 		oh.class.delete({
 			class_urn: urn,
 			no_orphan_campaigns: true
 		}).done(function(){
-			if(confirm("Are you sure you want to delete the class? You cannot undo this.")){
-				alert("Class " + urn + " deleted!");
-				location.replace(".");
-			}
+			alert("Class " + urn + " deleted!");
+			location.replace(".");
 		});
 	});
 });
