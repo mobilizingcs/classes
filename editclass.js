@@ -378,16 +378,7 @@ $(function(){
 			var last_name = rec[last_name_var];
 			var organization = rec[organization_var];
 			var personal_id = rec[id_var];
-			alert(JSON.stringify(rec))
 			progressStart();
-			alert(JSON.stringify({
-				class_urn_list : urn,
-				first_name : first_name,
-				last_name : last_name,
-				personal_id : personal_id,
-				organization : organization,
-				username_prefix : prefix
-			}))
 			return oh.user.setup({
 				class_urn_list : urn,
 				first_name : first_name,
