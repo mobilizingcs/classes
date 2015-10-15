@@ -424,11 +424,10 @@ $(function(){
 			class_urn: urn,
 			no_orphan_campaigns: true
 		}).done(function(){
-			if(!confirm("Are you sure you want to delete the class? You cannot undo this.")){
-				return;
+			if(confirm("Are you sure you want to delete the class? You cannot undo this.")){
+				alert("Class " + urn + " deleted!");
+				location.replace(".");
 			}
-			alert("Class " + urn + " deleted!");
-			location.replace(".");
 		});
 	});
 });
