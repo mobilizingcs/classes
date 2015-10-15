@@ -36,7 +36,7 @@ $(function(){
     }
 
     //initiate the client
-    var oh = Ohmage("/app", "campaign-manager")
+    var oh = Ohmage("/app", "class-manager")
 
     //global error handler. In ohmage 200 means unauthenticated
     oh.callback("error", function(msg, code, req){
