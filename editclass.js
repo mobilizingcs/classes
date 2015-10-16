@@ -8,6 +8,7 @@ $(function(){
 
 	//mvc
 	var campaigns = [];
+	var userrows = {};
 
 	//progress bar stuff
 	var n = 0;
@@ -57,7 +58,8 @@ $(function(){
 	function addrow(userdata, highlight){
 
 		//create the new row
-		var mytr = userdata.tablerow = $("<tr />").appendTo("#usertable tbody");
+		var mytr = $("<tr />").appendTo("#usertable tbody");
+		userrows[userdata["username"]] = mytr;
 
 		//newly added user
 		if(highlight){
@@ -412,7 +414,10 @@ $(function(){
 				var password = setupdata.password;
 
 				//existing user
-				if(memberlist.indexOf(newuser) > -1) return;
+				if(memberlist.indexOf(newuser) > -1){
+					userrows[newuser].addClass("info");
+					return;
+				};
 
 				//new user
 				new_user_count++;
