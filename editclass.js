@@ -2,7 +2,7 @@ $(function(){
 
 	//globals
 	var memberlist = [];
-	var userdata;
+	var myuserdata;
 	var table;
 	var me;
 
@@ -76,9 +76,9 @@ $(function(){
 		var changetd = $("<td>").addClass("noprint").appendTo(mytr);
 		var deltd = $("<td>").addClass("noprint").appendTo(mytr);
 
-
 		//add the deletebutton
 		var delbtn = $('<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove </button>').on("click", function(){
+			if(!confirm("Are you sure you want to remove user " + userdata["username"] + " from this class?")) return;
 			delbtn.attr("disabled", "disabled");
 			oh.class.removeuser(urn, userdata["username"]).done(function(){
 				var index = memberlist.indexOf(userdata["username"]);
@@ -92,6 +92,11 @@ $(function(){
 				delbtn.removeAttr("disabled");
 			});
 		}).appendTo(deltd);
+
+		//can't delte yourself
+		if(userdata["username"] == me){
+			delbtn.attr("disabled", "disabled").off("click");
+		}
 
 		//there are not user-setup accounts (or ACL problem)
 		if(!password){
@@ -293,7 +298,7 @@ $(function(){
 		//get the current user name and organization
 		oh.user.read({user:username}).done(function(data){
 			me = username;
-			userdata = data[username];
+			myuserdata = data[username];
 		});
 
 		//get the classes that the user has access to
@@ -378,7 +383,7 @@ $(function(){
 		var new_user_count = 0;
 		var requests = $.map(importdata, function(rec){
 			var first_name = rec[first_name_var];
-			var last_name = rec[last_name_var];
+			var last_name = rec[currentuserlast_name_var];
 			var organization = rec[organization_var];
 			var personal_id = rec[id_var];
 			progressStart();
