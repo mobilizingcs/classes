@@ -385,6 +385,7 @@ $(function(){
 		var first_name_var = validate($("#import_first_name"));
 		var last_name_var = validate($("#import_last_name"));
 		var organization_var = validate($("#import_organization"));
+		var email_address_var = $("#import_email").val();
 		var prefix = $("#import_prefix").val();
 		btn.attr("disabled", "disabled")
 		n = 0;
@@ -392,9 +393,10 @@ $(function(){
 		var new_user_count = 0;
 		var requests = $.map(importdata, function(rec){
 			var first_name = rec[first_name_var];
-			var last_name = rec[currentuserlast_name_var];
+			var last_name = rec[last_name_var];
 			var organization = rec[organization_var];
 			var personal_id = rec[id_var];
+			var email_address = email_address_var ? rec[email_address_var] : undefined;
 			progressStart();
 			return oh.user.setup({
 				class_urn_list : urn,
@@ -402,6 +404,7 @@ $(function(){
 				last_name : last_name,
 				personal_id : personal_id,
 				organization : organization,
+				email_address : email_address,
 				username_prefix : prefix
 			}).done(function(setupdata){
 				progressDone();
