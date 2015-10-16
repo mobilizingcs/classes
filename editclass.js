@@ -6,6 +6,9 @@ $(function(){
 	var table;
 	var me;
 
+	//mvc
+	var campaigns = [];
+
 	//progress bar stuff
 	var n = 0;
 	var m = 0;
@@ -226,6 +229,12 @@ $(function(){
 				var restd = td("").appendTo(mytr);
 				var deltd = td("").appendTo(mytr);
 
+				campaigns.push({
+					urn : campaign_urn,
+					classlen : campaigndata["classes"].length,
+					tr : mytr
+				});
+
 				progressStart();
                 oh.survey.count(campaign_urn).done(function(counts){
                     if(!Object.keys(counts).length){
@@ -428,8 +437,26 @@ $(function(){
 	});
 
 	$("#class_delete_button").click(function(e){
-		if(!confirm("Are you sure you want to delete the class? You cannot undo this.")) return;
 		e.preventDefault();
+		$(this).blur();
+
+		//check campaigns
+		var errorlen = 0;
+		$.each(campaigns, function(i, doc){
+			if(doc.classlen == 1) {
+				doc.tr.addClass("danger").hide().show( "slow", function(){
+					doc.tr.removeClass("danger");
+				});
+				errorlen++
+			}
+		});
+		if(errorlen) {
+			message("This class has campaigns in it. You need to delete your campagins first.");
+			return;
+		}
+
+		if(!confirm("Are you sure you want to delete the class? You cannot undo this.")) return;
+
 		oh.class.delete({
 			class_urn: urn,
 			no_orphan_campaigns: true
