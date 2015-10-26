@@ -372,12 +372,12 @@ $(function(){
 
 	function validate(x){
 		var val = x.val()
-		if(val){
-			x.removeClass("error");
-			return val;
+		if(!val){
+			x.parent().parent().addClass("has-error");
+			return null;
 		} else {
-			x.addClass("error");
-			throw "invalid value";
+			x.parent().parent().removeClass("has-error");			
+			return val;
 		}
 	}
 
@@ -388,6 +388,7 @@ $(function(){
 		var first_name_var = validate($("#import_first_name"));
 		var last_name_var = validate($("#import_last_name"));
 		var organization_var = validate($("#import_organization"));
+		if(!id_var || !first_name_var || !last_name_var || !organization_var) return;
 		var email_address_var = $("#import_email").val();
 		var prefix = $("#import_prefix").val();
 		btn.attr("disabled", "disabled")
@@ -477,6 +478,7 @@ $(function(){
 
 	var import_fields = $(".import_field").change(function(){
 		var me = this;
+		$(me).parent().parent().removeClass("has-error");
 		$.each(import_fields, function(i, you){
 			if((me != you) && ($(me).val() == $(you).val())){
 				$(you).val("");
