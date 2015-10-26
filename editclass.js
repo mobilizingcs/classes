@@ -479,7 +479,6 @@ $(function(){
 			class_urn: urn,
 			no_orphan_campaigns: true
 		}).done(function(){
-			alert("Class " + urn + " deleted!");
 			location.replace(".");
 		});
 	});
