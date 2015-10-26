@@ -350,6 +350,7 @@ $(function(){
 			importdata = results.data;
 			var fields = results.meta.fields;
 			$("select.import_field").empty();
+			$("#import_email").append($("<option />"));
 			$.each(fields, function(i, field){
 				$("select.import_field").append($("<option />").text(field).val(field));						
 			});
