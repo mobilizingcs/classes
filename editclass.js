@@ -356,12 +356,12 @@ $(function(){
 			});
 			$("select.import_field").val("");
 			$(".import_field").removeAttr("disabled");
-			$("#importform").show();
+			$("#importform").css('opacity', '1');
 		});
 	}).on('fileclear', function(e){
 		importdata = undefined;
 		$("select.import_field").empty();
-		$("#importform").hide()
+		$("#importform").css('opacity', '0.3');
 		$(".import_field").attr("disabled", "disabled");
 	}).fileinput({
 		allowedFileExtensions: ["csv", "CSV"], 
