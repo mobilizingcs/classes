@@ -92,7 +92,9 @@ $(function(){
 				} else {
 					console.log("removed member not found in memberlist?!?")
 				}				
-				mytr.fadeOut();
+				mytr.fadeOut(function(){
+					mytr.remove();
+				});
 			}).always(function(){
 				delbtn.removeAttr("disabled");
 			});
@@ -259,7 +261,10 @@ $(function(){
 					var detachbtn = $('<button class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-minus"></span> Detach </button>').on("click", function(){
 						detachbtn.attr("disabled", "disabled");
 						oh.campaign.removeclass(campaign_urn, urn).done(function(){
-							mytr.fadeOut();
+							mytr.fadeOut(function(){
+								mytr.remove();
+								delete_campaign(campaign_urn);
+							});
 						}).always(function(){
 							detachbtn.removeAttr("disabled");
 						});
@@ -271,7 +276,10 @@ $(function(){
 						oh.campaign.delete({
 							campaign_urn : campaign_urn
 						}).done(function(){
-							mytr.fadeOut();
+							mytr.fadeOut(function(){
+								mytr.remove();
+								delete_campaign(campaign_urn);
+							});
 						}).always(function(){
 							delbtn.removeAttr("disabled");
 						});
@@ -475,6 +483,16 @@ $(function(){
 			location.replace(".");
 		});
 	});
+
+	function delete_campaign(delete_urn){
+		$.each(campaigns, function(i, val){
+			if(val.urn == delete_urn){
+				//remove campaign and break out of each loop
+				campaigns.splice(i, 1);
+				return false;
+			}
+		});
+	}
 
 	var import_fields = $(".import_field").change(function(){
 		var me = this;
