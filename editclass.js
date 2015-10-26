@@ -473,4 +473,13 @@ $(function(){
 			location.replace(".");
 		});
 	});
+
+	var import_fields = $(".import_field").change(function(){
+		var me = this;
+		$.each(import_fields, function(i, you){
+			if((me != you) && ($(me).val() == $(you).val())){
+				$(you).val("");
+			}
+		});
+	});
 });
