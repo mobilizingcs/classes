@@ -54,7 +54,7 @@ $(function(){
 		td(role || "-").appendTo(mytr);
 
 		var mybtn = $('<a class="btn btn-sm btn-default"><i class="glyphicon glyphicon-edit"></i> Manage</a>')
-		.attr("href", "editclass.html?" + urn).appendTo($("<td>").addClass("buttontd").appendTo(mytr));
+		.attr("href", "editclass.html#" + urn).appendTo($("<td>").addClass("buttontd").appendTo(mytr));
 
 		if(!(role == "privileged" || userdata.permissions.admin)){
 			mybtn.attr("disabled", "disabled");
@@ -202,7 +202,7 @@ $(function(){
 				}
 			});
 			$.when.apply($, requests2).always(function() {
-				window.location.href = 'editclass.html?' + class_urn;
+				window.location.href = 'editclass.html#' + class_urn;
 			});
 		});
 	}

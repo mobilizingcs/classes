@@ -34,11 +34,15 @@ $(function(){
 	}
 
 	//get urn from param
-	var urn = location.search.replace(/^[?]/, "");
+	var urn = location.hash.replace(/^[#]/, "");
 	if(!urn.match(/^urn/)){
         location.replace(".")
         return;
     }
+
+    $("body").on("hashchange", function(){
+    	location.reload();
+    });
 
     //initiate the client
     var oh = Ohmage("/app", "class-manager")
