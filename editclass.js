@@ -167,7 +167,7 @@ $(function(){
 			$("#maintitle").text(classdata.name);
 			$("#subtitle").text(classdata.role);
 			oh.user.read({
-				user_list : Object.keys(classdata.users).toString()
+				user_list : Object.keys(classdata.users).toString() || me
 			}).done(function(userlist){
 				var requests = [];
 				$.each(userlist, function(id, rec){
