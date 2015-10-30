@@ -36,6 +36,8 @@
 				<div class="pull-right">
 
 					<!--<button id="print_button" class="btn btn-default"><span class="glyphicon glyphicon-print"></span> Print Page</button>-->
+					<button id="class_delete_button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete Class</button>
+
 				</div>
 
 				<h1><span id="maintitle">Class Manager</span> <small id="subtitle"></small></h1>
@@ -54,9 +56,9 @@
 		<div class="row">
 			<div class="panel-group" id="accordion" role="tablist">
 				<div class="panel panel-default">
-					<div class="panel-heading" role="tab">
+					<div class="panel-heading" data-toggle="collapse" data-target="#collapseOne" role="tab">
 						<h4 class="panel-title">
-							<span class="glyphicon glyphicon-trash"></span>
+							<span class="glyphicon glyphicon-picture"></span>
 							<a class="collapsed" role="button" data-toggle="collapse" href="#collapseOne">
 								 Campaigns
 							</a>
@@ -78,13 +80,11 @@
 								<tbody></tbody>
 							</table>
 
-							<button id="class_delete_button" class="btn btn-lg btn-danger center-block"><span class="glyphicon glyphicon-trash"></span> Delete Entire Class</button>
-
 						</div>
 					</div>
 				</div>
 				<div class="panel panel-default">
-					<div class="panel-heading" role="tab">
+					<div class="panel-heading" data-toggle="collapse" data-target="#collapseTwo" role="tab">
 						<h4 class="panel-title">
 							<span class="glyphicon glyphicon-file"></span> 
 							<a class="collapsed" role="button" data-toggle="collapse" href="#collapseTwo">
@@ -148,7 +148,7 @@
 				</div>
 
 				<div class="panel panel-default">
-					<div class="panel-heading" role="tab">
+					<div class="panel-heading" data-toggle="collapse" data-target="#collapseThree" role="tab">
 						<h4 class="panel-title">
 							<span class="glyphicon glyphicon-user"></span>
 							<a class="collapsed" role="button" data-toggle="collapse" href="#collapseThree">
