@@ -5,6 +5,7 @@ $(function(){
 	var myuserdata;
 	var table;
 	var me;
+	var has_user_setup = false;
 
 	//mvc
 	var campaigns = [];
@@ -179,7 +180,7 @@ $(function(){
 					memberlist.push(id);
 
 					//call user setup for each user to get the initial password
-					if(!(rec["first_name"] && rec["last_name"] && rec["personal_id"] && rec["organization"])){
+					if(!(has_user_setup && rec["first_name"] && rec["last_name"] && rec["personal_id"] && rec["organization"])){
 						addrow(rec, false);
 						return;
 					}
@@ -318,11 +319,16 @@ $(function(){
 		oh.user.read({user:username}).done(function(data){
 			me = username;
 			myuserdata = data[username];
-		});
 
-		//get the classes that the user has access to
-		buildusertable();
-		buildcampaigntable();
+			if(myuserdata.permissions.admin || myuserdata.permissions.can_setup_users){
+				has_user_setup = true;
+				$("#importpanel").show();
+			}
+
+			//get the classes that the user has access to
+			buildusertable();
+			buildcampaigntable();
+		});
 	});
 
 	$("#randompasswordbtn").click(function(e){

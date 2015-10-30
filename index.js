@@ -233,14 +233,13 @@ $(function(){
 			userdata = data[username];
 			$("#subtitle").text(userdata.first_name + " " + userdata.last_name)
 
-			/* This was used for the teacher tool but not for the class tool
 			if(!(userdata.permissions.admin || userdata.permissions.can_setup_users)){
-				message("You do not have user/setup privileges!")
+				//message("You do not have user/setup privileges!")
 			}
-			if(!(userdata.permissions.admin || userdata.permissions.can_create_classes)){
-				message("You do not have class/create privileges!")
+
+			if((userdata.permissions.admin || userdata.permissions.can_create_classes)){
+				$("#new_class_button").removeAttr("disabled");
 			}
-			*/			
 
 			//get the classes that the user has access to
 			$("#classtable tbody").empty();
