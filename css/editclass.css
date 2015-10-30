@@ -5,3 +5,7 @@
 tbody tr[role=row]:hover {
 	background-color: #EEEEEE;
 }
+
+.panel-heading {
+	cursor: pointer;
+}
