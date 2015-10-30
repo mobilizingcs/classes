@@ -367,6 +367,7 @@ $(function(){
 
 	var importdata;
 	$('#input-csv').on('fileloaded', function(event, file, previewId, index, reader) {
+		$("#usertable tr").removeClass("success").removeClass("info");
 		parse_file(file, function(results){
 			importdata = results.data;
 			var fields = results.meta.fields;
