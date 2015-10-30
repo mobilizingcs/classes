@@ -468,7 +468,7 @@ $(function(){
 		});
 		if(errorlen) {
 			$('.collapse:first').collapse('show');
-			message("This class has campaigns that are ONLY in your class. Please delete these first to proceed with class deletion.");
+			message("This class has campaigns that are ONLY in your class. Please delete these campaigns highlighed in red to proceed with class deletion.");
 			return;
 		}
 
