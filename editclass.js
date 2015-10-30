@@ -63,7 +63,7 @@ $(function(){
 	function addrow(userdata, highlight){
 
 		//create the new row
-		var mytr = $("<tr />").appendTo("#usertable tbody");
+		var mytr = $("<tr />");
 		userrows[userdata["username"]] = mytr;
 
 		//newly added user
@@ -86,6 +86,9 @@ $(function(){
 		var changetd = $("<td>").addClass("noprint").appendTo(mytr);
 		var deltd = $("<td>").addClass("noprint").appendTo(mytr);
 
+		//add to table
+		table.row.add(mytr).draw();
+
 		//add the deletebutton
 		var delbtn = $('<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove </button>').on("click", function(){
 			if(!confirm("Are you sure you want to remove user " + userdata["username"] + " from this class?")) return;
@@ -98,7 +101,7 @@ $(function(){
 					console.log("removed member not found in memberlist?!?")
 				}				
 				mytr.fadeOut(function(){
-					mytr.remove();
+					table.row(mytr).remove().draw();
 				});
 			}).always(function(){
 				delbtn.removeAttr("disabled");
@@ -213,7 +216,6 @@ $(function(){
 
 				//after all requests are done
 				$.when.apply($, requests).always(function() {
-					initTable();
 					updateProgress()
 				});
 			}).always(function(){
@@ -330,6 +332,7 @@ $(function(){
 			}
 
 			//get the classes that the user has access to
+			initTable();
 			buildusertable();
 			buildcampaigntable();
 		});
