@@ -14,6 +14,9 @@ $(function(){
 	var table;
 	var user_campaigns = [];
 
+	//to lookup campaigns for a class
+	var class_campaigns = {};
+
 	//initiate the client
 	var oh = Ohmage("/app", "class-manager")
 
@@ -43,6 +46,7 @@ $(function(){
 		var users = classdata.users
 		var count = Object.keys(users).length;
 
+		classdata.urn = urn;
 		var mytr = $("<tr />").data("classdata", classdata).appendTo("#classtable tbody");
 		td(name).appendTo(mytr);
 		td(urn).appendTo(mytr);
@@ -64,14 +68,23 @@ $(function(){
 
 	function expand(rowdata, classdata) {
 		var row = $('<div/>').addClass('row').addClass("response-row");
-		var col1 = $("<div />").addClass("col-md-6").appendTo(row).append($("<h4 />").text("privileged"));
-		var col2 = $("<div />").addClass("col-md-6").appendTo(row).append($("<h4 />").text("restricted"));
+		var col1 = $("<div />").addClass("col-md-3").appendTo(row).append($("<h4 />").text("Privileged Users"));
+		var col2 = $("<div />").addClass("col-md-3").appendTo(row).append($("<h4 />").text("Restricted Users"));
 		var ul1 = $("<ul />").appendTo(col1)
 		var ul2 = $("<ul />").appendTo(col2)
 
 		$.each(classdata.users, function(name, role){
 			$("<li/>").text(name).appendTo(role == "privileged" ? ul1 : ul2)
 		});
+
+		var col3 = $("<div />").addClass("col-md-6").appendTo(row).append($("<h4 />").text("Campaigns"));
+		var ul3 = $("<ul />").appendTo(col3)
+		if(class_campaigns[classdata.urn]){
+			$.each(class_campaigns[classdata.urn], function(i, campaign_name){
+				$("<li/>").text(campaign_name).appendTo(ul3)
+			});
+		}
+
 		return row;
 	}
 
@@ -203,9 +216,16 @@ $(function(){
 	//init page
 	oh.user.whoami().done(function(username){
 
-		//get the user campaigns
-		oh.campaign.read({}).done(function(x){
-			user_campaigns = x;
+		//get the user campaigns and their associated classes
+		oh.campaign.readall().done(function(res){
+			user_campaigns = Object.keys(res);
+			$.each(res, function(campaign_urn, campaign_data){
+				if(!campaign_data.classes) return;
+				$.each(campaign_data.classes, function(i, class_urn){
+					if(!class_campaigns[class_urn]) class_campaigns[class_urn] = [];
+					class_campaigns[class_urn].push(campaign_data.name);
+				});
+			});
 		});
 
 		//get the users name and organization
