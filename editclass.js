@@ -462,13 +462,12 @@ $(function(){
 		var errorlen = 0;
 		$.each(campaigns, function(i, doc){
 			if(doc.classlen == 1) {
-				doc.tr.addClass("danger").hide().show( "slow", function(){
-					doc.tr.removeClass("danger");
-				});
+				doc.tr.addClass("danger").hide().show( "slow" );
 				errorlen++
 			}
 		});
 		if(errorlen) {
+			$('.collapse:first').collapse('show');
 			message("This class has campaigns in it. You need to delete your campagins first.");
 			return;
 		}
