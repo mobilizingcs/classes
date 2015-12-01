@@ -68,16 +68,31 @@ $(function(){
 
 	function expand(rowdata, classdata) {
 		var row = $('<div/>').addClass('row').addClass("response-row");
-		var col1 = $("<div />").addClass("col-md-3").appendTo(row).append($("<h4 />").text("Privileged Users"));
-		var col2 = $("<div />").addClass("col-md-3").appendTo(row).append($("<h4 />").text("Restricted Users"));
+		var col1 = $("<div />").addClass("col-md-3").appendTo(row);
+		var col2 = $("<div />").addClass("col-md-3").appendTo(row);
+
+		var h1 = $("<h4 />").appendTo(col1);
+		var h2 = $("<h4 />").appendTo(col2);
+
 		var ul1 = $("<ul />").appendTo(col1)
 		var ul2 = $("<ul />").appendTo(col2)
 
+		var count_privileged = 0;
+		var count_restricted = 0;
 		$.each(classdata.users, function(name, role){
-			$("<li/>").text(name).appendTo(role == "privileged" ? ul1 : ul2)
+			$("<li/>").text(name).appendTo(role == "privileged" ? ul1 : ul2);
+			if(role == "privileged"){
+				count_privileged++
+			} else {
+				count_restricted++;
+			}
 		});
 
-		var col3 = $("<div />").addClass("col-md-6").appendTo(row).append($("<h4 />").text("Campaigns"));
+		h1.text("Privileged Users (" + count_privileged + ")");
+		h2.text("Restricted Users (" + count_restricted + ")");
+
+		var clen = class_campaigns[classdata.urn] ? class_campaigns[classdata.urn].length : 0;
+		var col3 = $("<div />").addClass("col-md-6").appendTo(row).append($("<h4 />").text("Campaigns (" + clen + ")"));
 		var ul3 = $("<ul />").appendTo(col3)
 		if(class_campaigns[classdata.urn]){
 			$.each(class_campaigns[classdata.urn], function(i, campaign_name){
