@@ -121,9 +121,10 @@ $(function(){
 
 		//only display the initial password if new_account is true
 		if(userdata.permissions && userdata.permissions.new_account){
-			pwfield.text(password).data("password", password);
+			pwfield.data("password", password);
+			table.cell(pwfield).data(password).draw();
 		} else {
-			pwfield.text("<activated>");
+			table.cell(pwfield).data("<activated>").draw();
 		}
 
 		//add the reset password button
