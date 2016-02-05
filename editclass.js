@@ -299,7 +299,11 @@ $(function(){
 	//data tables widget
 	function initTable(){
 		table = $('#usertable').DataTable( {
-			"dom" : '<"pull-right"l><"pull-left"f>tip',
+			"buttons": [{
+				extend: 'print',
+				text: '<span class="glyphicon glyphicon-print"></span> Print Page'
+			}],
+			"dom" : 'B<"pull-right"l><"pull-left"f>tip',
 			"lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
 			"aoColumnDefs": [
 			{ 'bSortable': false, 'aTargets': [ 6, 7 ] },
