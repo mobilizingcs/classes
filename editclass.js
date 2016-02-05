@@ -172,6 +172,7 @@ $(function(){
 				location.replace(".");
 			}
 			$("#maintitle").text(classdata.name);
+			$("title").text(classdata.name);
 			$("#subtitle").text(classdata.role);
 			oh.user.read({
 				user_list : Object.keys(classdata.users).toString() || me
