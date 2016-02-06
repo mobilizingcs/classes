@@ -77,8 +77,20 @@
 								<input class="form-control" id="inputClassUrn" placeholder="A unique ID" disabled>
 							</div>
 							<div class="form-group">
-								<label class="control-label" for="inputClassUrn">Demo Campaigns</label>
-								<div id="inputDemoCampaigns" class="input-group"></div>
+								<label class="control-label" for="inputSubject">Curriculum</label>
+								<select class="form-control" id="inputSubject">
+									<option value disabled selected> -- select a subject -- </option>
+									<option value="math">Math</option>
+									<option value="science">Science</option>
+									<option value="ecs">ECS</option>
+									<option value="ids">IDS</option>
+									<option value="other">Other</option>
+								</select>
+							</div>
+							<div class="form-group demo-form-group">
+								<label class="control-label" for="inputClassUrn">Campaigns</label>
+								<div id="inputDemoCampaigns" class="input-group" style="display: none;"></div>
+								<p id="subjectCampaignList" class="help-block">Select a Curriculum...</p>
 							</div>
 						</form>
 					</div>

@@ -20,7 +20,7 @@ $(function(){
 			$(".progress").show();
 		} else {
 			$(".progress").hide();
-		}	
+		}
 	}
 
 	function progressStart(){
