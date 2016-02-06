@@ -305,7 +305,7 @@ $(function(){
 				extend: 'print',
 				text: '<span class="glyphicon glyphicon-print"></span> Print',
 				exportOptions: {
-					columns: [0,1,2,3,5]
+					columns: [1,2,3,5]  //first, last, username, password
 				}
 			}],
 			"dom" : 'B<"pull-right"l><"pull-left"f>tip',
