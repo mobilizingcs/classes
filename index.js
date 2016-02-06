@@ -25,7 +25,7 @@ $(function(){
 
 	$("#inputSubject").change(function(){
 		var curriculum = $(this).val();
-		if(curriculum == "other") {
+		if(curriculum == "demo") {
 			$("#inputDemoCampaigns").show();
 			$("#subjectCampaignList").hide();
 		} else {
@@ -186,7 +186,7 @@ $(function(){
 
 		var curriculum = $("#inputSubject").val();
 		var campaigns = [];
-		if(curriculum == "other"){
+		if(curriculum == "demo"){
 			campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});			
 		} else {
 			campaigns = $.map(subjectcampaigns[curriculum], function(x){return x + ".xml"})
