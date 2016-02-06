@@ -76,15 +76,15 @@ $(function(){
 		td(userdata["first_name"]).appendTo(mytr);
 		td(userdata["last_name"]).appendTo(mytr);
 		td(userdata["username"]).appendTo(mytr);
-		td(userdata["role"]).addClass("noprint").appendTo(mytr);
+		td(userdata["role"]).appendTo(mytr);
 
 		//password field
 		var pwfield = td("").appendTo(mytr);
 		var password = userdata.password;
 
 		//delete and change button fields
-		var changetd = $("<td>").addClass("noprint").appendTo(mytr);
-		var deltd = $("<td>").addClass("noprint").appendTo(mytr);
+		var changetd = $("<td>").appendTo(mytr);
+		var deltd = $("<td>").appendTo(mytr);
 
 		//add to table
 		table.row.add(mytr).draw();
@@ -303,7 +303,10 @@ $(function(){
 		table = $('#usertable').DataTable( {
 			"buttons": [{
 				extend: 'print',
-				text: '<span class="glyphicon glyphicon-print"></span> Print Page'
+				text: '<span class="glyphicon glyphicon-print"></span> Print Page',
+				exportOptions: {
+					columns: [0,1,2,3,5]
+				}
 			}],
 			"dom" : 'B<"pull-right"l><"pull-left"f>tip',
 			"lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
