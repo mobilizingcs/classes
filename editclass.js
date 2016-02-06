@@ -303,7 +303,7 @@ $(function(){
 		table = $('#usertable').DataTable( {
 			"buttons": [{
 				extend: 'print',
-				text: '<span class="glyphicon glyphicon-print"></span> Print Page',
+				text: '<span class="glyphicon glyphicon-print"></span> Print',
 				exportOptions: {
 					columns: [0,1,2,3,5]
 				}
@@ -315,6 +315,10 @@ $(function(){
 			{ 'bSearchable': false, 'aTargets': [ 6, 7 ] },
 			{ 'bVisible' : false, 'aTargets' : [  ] } 				
 			]
+		});
+
+		$("#print_button").click(function(){
+			$("a.buttons-print").trigger("click");
 		});
 	}
 
