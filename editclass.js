@@ -372,7 +372,10 @@ $(function(){
 			skipEmptyLines:true,
 			complete: function(results) {
 				if(results.errors.length){
-					message(results.errors)
+					var errmsgs = $.map(results.errors, function(val){
+						return "[row " + val.row + "] " + val.message;
+					});
+					message("CSV import failure(s):<br>" + errmsgs.join("<br>"));
 				}
 				cb(results);
 			}
