@@ -14,7 +14,7 @@ $(function(){
 		"Nutrition.xml" : "Nutrition",
 		"StressChill.xml" : "Stress and Chill",
 		"Trash.xml" : "Trash",
-		"Media.xml" : "Advertisement"
+		"Media.xml" : "Advertisement",
 	};
 
 	//add the democampaigns
@@ -185,14 +185,21 @@ $(function(){
 		e.preventDefault();
 		var class_name = $("#inputClassName").val();
 		var class_urn = $("#inputClassUrn").val();
-
 		var curriculum = $("#inputSubject").val();
-		var campaigns = [];
-		if(curriculum == "demo"){
-			campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});			
-		} else {
-			campaigns = $.map(subjectcampaigns[curriculum], function(x){return x + ".xml"})
-		}
+
+		class_name ?
+			$("#class-name-group").removeClass("has-error") :
+			$("#class-name-group").addClass("has-error");
+
+		curriculum ?
+			$("#curriculum-name-group").removeClass("has-error") :
+			$("#curriculum-name-group").addClass("has-error");
+
+		if(!class_name || !curriculum) return;
+		
+		var campaigns = (curriculum == "demo") ?
+			$.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()}) :	
+			$.map(subjectcampaigns[curriculum], function(x){return x + ".xml"});
 
 		//try to create the new class
 		btn.attr("disabled", "disabled")
@@ -231,7 +238,7 @@ $(function(){
 				return x.responseText;
 			});
 			var requests2 = $.map(campaigns, function(val, i){
-				var prettyname = democampaigns[val];
+				var prettyname = democampaigns[val] || val.replace(".xml", "");
 				var xmlstr = xmlstrings[i];
 				var campaign_urn = class_urn.replace("urn:class", "urn:campaign") + ":" + urnify(val.replace(".xml", ""));
 

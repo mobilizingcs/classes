@@ -317,7 +317,8 @@ $(function(){
 			]
 		});
 
-		$("#print_button").click(function(){
+		$("#print_button").click(function(e){
+			e.preventDefault();
 			$("a.buttons-print").trigger("click");
 		});
 	}
