@@ -1,5 +1,13 @@
 $(function(){
 
+	//these should correspond to name.xml files in the xml dir
+	var subjectcampaigns = {
+	    "science" : ["Trash", "TrashWarmUp"],
+	    "math" : ["Nutrition_v2", "Snack", "Height"],
+	    "ecs" : ["Media", "Snack"],
+	    "ids" : ["FoodHabits", "PersonalityColor", "StressChill", "TimeUse", "TimePerception"]
+	};
+
 	//demo campaigns
 	var democampaigns = {
 		"Snack.xml" : "Snack",
@@ -9,13 +17,11 @@ $(function(){
 		"Media.xml" : "Advertisement"
 	};
 
-	//these should correspond to name.xml files in the xml dir
-	var subjectcampaigns = {
-	    "science" : ["Trash", "TrashWarmUp"],
-	    "math" : ["Nutrition_v2", "Snack", "Height"],
-	    "ecs" : ["Media", "Snack"],
-	    "ids" : ["FoodHabits", "PersonalityColor", "StressChill", "TimeUse", "TimePerception"]
-	};
+	//add the democampaigns
+	$.each(democampaigns, function(xml, name){
+		var input = $("<input>").attr("type", "checkbox").attr("value", xml)
+		var label = $("<label />").addClass("checkbox-inline").append(input).append(name).appendTo("#inputDemoCampaigns");
+	});	
 
 	$("#inputSubject").change(function(){
 		var curriculum = $(this).val();
@@ -177,7 +183,14 @@ $(function(){
 		e.preventDefault();
 		var class_name = $("#inputClassName").val();
 		var class_urn = $("#inputClassUrn").val();
-		var campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});
+
+		var curriculum = $("#inputSubject").val();
+		var campaigns = [];
+		if(curriculum == "other"){
+			campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});			
+		} else {
+			campaigns = $.map(subjectcampaigns[curriculum], function(x){return x + ".xml"})
+		}
 
 		//try to create the new class
 		btn.attr("disabled", "disabled")
@@ -241,12 +254,6 @@ $(function(){
 			});
 		});
 	}
-
-	//add the democampaigns
-	$.each(democampaigns, function(xml, name){
-		var input = $("<input>").attr("type", "checkbox").attr("value", xml)
-		var label = $("<label />").addClass("checkbox-inline").append(input).append(name).appendTo("#inputDemoCampaigns");
-	});
 
 	//init page
 	oh.user.whoami().done(function(username){
