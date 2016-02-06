@@ -178,6 +178,8 @@ $(function(){
 		$(this).val(urn);
 	});
 
+	$('[data-toggle="tooltip"]').tooltip()
+
 	$("#createbutton").on("click", function createclass(e){
 		var btn = $(this)
 		e.preventDefault();
