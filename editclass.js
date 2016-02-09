@@ -368,8 +368,8 @@ $(function(){
 	//read csv from file (file input is async)
 	function parse_file(file, cb){
 		Papa.parse(file,{
-			header:true, 
-			skipEmptyLines:true,
+			header : true,
+			skipEmptyLines : true,
 			complete: function(results) {
 				if(results.errors.length){
 					var errmsgs = $.map(results.errors, function(val){
