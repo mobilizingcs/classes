@@ -378,8 +378,9 @@ $(function(){
 						return "[row " + val.row + "] " + val.message;
 					});
 					message("CSV import failure(s):<br>" + errmsgs.join("<br>"));
+				} else {
+					cb(results);
 				}
-				cb(results);
 			}
 		});
 	}
