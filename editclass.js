@@ -6,6 +6,7 @@ $(function(){
 	var table;
 	var me;
 	var has_user_setup = false;
+	var teacherorg = "lausd"
 
 	//mvc
 	var campaigns = [];
@@ -36,13 +37,13 @@ $(function(){
 	//get urn from param
 	var urn = location.hash.replace(/^[#]/, "");
 	if(!urn.match(/^urn/)){
-        location.replace(".")
-        return;
-    }
+		location.replace(".")
+		return;
+	}
 
-    $("body").on("hashchange", function(){
-    	location.reload();
-    });
+	$("body").on("hashchange", function(){
+		location.reload();
+	});
 
     //initiate the client
     var oh = Ohmage("/app", "class-manager")
@@ -293,7 +294,7 @@ $(function(){
 							delbtn.removeAttr("disabled");
 						});
 					}).appendTo(deltd);                	
-                }
+				}
 			});
 		});
 	}
@@ -339,6 +340,7 @@ $(function(){
 		oh.user.read({user:username}).done(function(data){
 			me = username;
 			myuserdata = data[username];
+			teacherorg = myuserdata.organization || "lausd";
 
 			if(myuserdata.permissions.admin || myuserdata.permissions.can_setup_users){
 				has_user_setup = true;
@@ -388,14 +390,18 @@ $(function(){
 		parse_file(file, function(results){
 			importdata = results.data;
 			var fields = results.meta.fields;
-			$("select.import_field").empty();
-			$("#import_email").append($("<option />"));
-			$.each(fields, function(i, field){
-				$("select.import_field").append($("<option />").text(field).val(field));						
-			});
-			$("select.import_field").val("");
-			$(".import_field").removeAttr("disabled");
-			$("#importform").css('opacity', '1');
+			if(fields.indexOf("StudentCode") >= 0 && fields.indexOf("StudentName1") >= 0 ){
+				import_lausd(importdata)
+			} else {
+				$("select.import_field").empty();
+				$("#import_email").append($("<option />"));
+				$.each(fields, function(i, field){
+					$("select.import_field").append($("<option />").text(field).val(field));						
+				});
+				$("select.import_field").val("");
+				$(".import_field").removeAttr("disabled");
+				$("#importform").css('opacity', '1');
+			}
 		});
 	}).on('fileclear', function(e){
 		importdata = undefined;
@@ -408,6 +414,31 @@ $(function(){
 		showUpload : false,
 		showPreview : true	
 	});
+
+	function import_lausd(data){
+		$.each(data, function(i, rec){
+			rec.firstname = rec["StudentName1"].split(",")[1].trim();
+			rec.lastname = rec["StudentName1"].split(",")[0].trim();
+			rec.teacherorg = teacherorg;
+		});
+		$("#importmodal").modal().show();
+		$("tbody.csvimport").empty();	
+		$.each(data, function(i, rec){
+			var tr = $("<tr />").appendTo("tbody.csvimport");	
+			tr.append($("<td />").text(rec.StudentCode))	
+			tr.append($("<td />").text(rec.firstname))	
+			tr.append($("<td />").text(rec.lastname))	
+		});
+		$("#importlausdbtn").unbind("click").click(function(){
+			import_all(data, {
+				first_name_var : "firstname",
+				last_name_var : "lastname",
+				organization_var : "teacherorg",
+				id_var : "StudentCode",
+				prefix : "lausd"	
+			})
+		});
+	}
 
 	function validate(x){
 		var val = x.val()
@@ -431,15 +462,26 @@ $(function(){
 		var email_address_var = $("#import_email").val();
 		var prefix = $("#import_prefix").val();
 		btn.attr("disabled", "disabled")
+		import_all(importdata, {
+			first_name_var : first_name_var,
+			last_name_var : last_name_var,
+			organization_var : organization_var,
+			id_var : id_var,
+			email_address_var : email_address_var,
+			prefix : prefix
+		});
+	});
+
+	function import_all(data, varmap){
 		n = 0;
 		m = 0;
 		var new_user_count = 0;
-		var requests = $.map(importdata, function(rec){
-			var first_name = rec[first_name_var];
-			var last_name = rec[last_name_var];
-			var organization = rec[organization_var];
-			var personal_id = rec[id_var];
-			var email_address = email_address_var ? rec[email_address_var] : undefined;
+		var requests = $.map(data, function(rec){
+			var first_name = rec[varmap.first_name_var];
+			var last_name = rec[varmap.last_name_var];
+			var organization = rec[varmap.organization_var];
+			var personal_id = rec[varmap.id_var];
+			var email_address = varmap.email_address_var ? rec[varmap.email_address_var] : undefined;
 			progressStart();
 			return oh.user.setup({
 				class_urn_list : urn,
@@ -448,7 +490,7 @@ $(function(){
 				personal_id : personal_id,
 				organization : organization,
 				email_address : email_address,
-				username_prefix : prefix
+				username_prefix : varmap.prefix
 			}).done(function(setupdata){
 				progressDone();
 				var newuser = setupdata.username;
@@ -476,14 +518,14 @@ $(function(){
 					}
 				}, true);
 			});
-		});
+		})
 
 		//after all requests are done
 		$.when.apply($, requests).always(function() {
 			$('#input-csv').fileinput("clear");
 			message("All done! Added " + new_user_count + " new users.", "success");
 		});
-	});
+	};
 
 	$("#class_delete_button").click(function(e){
 		e.preventDefault();
