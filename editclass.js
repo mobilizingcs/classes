@@ -422,7 +422,7 @@ $(function(){
 			rec.lastname = rec["StudentName1"].split(",")[0].trim();
 			rec.teacherorg = teacherorg;
 		});
-		$("#importmodal").modal().show();
+		$("#importmodal").modal('show');
 		$("tbody.csvimport").empty();	
 		$.each(data, function(i, rec){
 			var tr = $("<tr />").appendTo("tbody.csvimport");	
@@ -437,7 +437,8 @@ $(function(){
 				organization_var : "teacherorg",
 				id_var : "StudentCode",
 				prefix : "lausd"	
-			})
+			});
+			$("#importmodal").modal('hide');
 		});
 	}
 
