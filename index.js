@@ -175,13 +175,16 @@ $(function(){
 	function updateFormFields(){
 		$("#curriculum-name-group").removeClass("has-error");
 		var curriculum = $("#inputSubject").val();
-		if(curriculum == "demo") {
+		if(!curriculum){
+			$(".form-generic-only").hide();
+			$(".form-mobilize-only").hide();
+			return;
+		} else if(curriculum == "demo") {
 			$(".form-generic-only").show();
 			$(".form-mobilize-only").hide();
 		} else {
 			$(".form-generic-only").hide();
 			$(".form-mobilize-only").show();
-			if(!curriculum) return; 
 			$("#subjectCampaignList").html(subjectcampaigns[curriculum].join(", "));			
 		}
 		updateURN();
