@@ -73,9 +73,9 @@ $(function(){
 		}
 
 		//fill in the fields
-		td(userdata["personal_id"]).appendTo(mytr);
-		td(userdata["first_name"]).appendTo(mytr);
 		td(userdata["last_name"]).appendTo(mytr);
+		td(userdata["first_name"]).appendTo(mytr);
+		td(userdata["personal_id"]).appendTo(mytr);
 		td(userdata["username"]).appendTo(mytr);
 		td(userdata["role"]).appendTo(mytr);
 
@@ -306,9 +306,10 @@ $(function(){
 				extend: 'print',
 				text: '<span class="glyphicon glyphicon-print"></span> Print',
 				exportOptions: {
-					columns: [1,2,3,5]  //first, last, username, password
+					columns: [0,1,3,5]  //first, last, username, password
 				}
 			}],
+			"order": [[ 0, "asc" ]],
 			"dom" : 'B<"pull-right"l><"pull-left"f>tip',
 			"lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
 			"aoColumnDefs": [
