@@ -67,7 +67,36 @@
 				<div class="modal-body">
 					<div id="class-create">
 						<form>
-							<div id="class-name-group" class="form-group">
+							<div id="curriculum-name-group" class="form-group">
+								<label class="control-label" for="inputSubject">Curriculum</label>
+								<select class="form-control" id="inputSubject">
+									<option disabled selected> -- select a subject -- </option>
+									<option value="algebra">Algebra1</option>
+									<option value="biology">Biology</option>
+									<option value="ecs">ECS</option>
+									<option value="ids">IDS</option>
+									<option value="demo">Other / Demo</option>
+								</select>
+							</div>
+							<div class="form-group" style="display:none">
+								<label class="control-label" for="inputQuarter">Semester</label>
+								<select class="form-control" id="inputQuarter"></select>
+							</div>
+
+							<div class="form-group" style="display:none">
+								<label class="control-label" for="inputPeriod">Period</label>
+								<select class="form-control" id="inputPeriod">
+									<option value="P1">P1</option>
+									<option value="P2">P2</option>
+									<option value="P3">P3</option>
+									<option value="P4">P4</option>
+									<option value="P5">P5</option>
+									<option value="P6">P6</option>
+									<option value="P7">P7</option>
+									<option value="P8">P8</option>
+								</select>
+							</div>							
+							<div id="class-name-group" class="form-group" style="display:none">
 								<label class="control-label" for="inputClassName">Class Name</label>
 								<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="A unique name. Include for example a school/course name, year and teaching period."></span>
 								<input class="form-control" id="inputClassName" placeholder="A short name">
@@ -76,23 +105,12 @@
 							<div class="form-group">
 								<label class="control-label" for="inputClassUrn">Class URN</label>
 								<input class="form-control" id="inputClassUrn" placeholder="A unique ID" disabled>
-							</div>
-							<div id="curriculum-name-group" class="form-group">
-								<label class="control-label" for="inputSubject">Curriculum</label>
-								<select class="form-control" id="inputSubject">
-									<option disabled selected> -- select a subject -- </option>
-									<option value="math">Math</option>
-									<option value="science">Science</option>
-									<option value="ecs">ECS</option>
-									<option value="ids">IDS</option>
-									<option value="demo">Demo</option>
-								</select>
-							</div>
-							<div class="form-group demo-form-group">
+							</div>							<div class="form-group demo-form-group">
 								<label class="control-label" for="inputClassUrn">Campaigns</label>
 								<div id="inputDemoCampaigns" class="input-group" style="display: none;"></div>
 								<p id="subjectCampaignList" class="help-block">Select a Curriculum...</p>
 							</div>
+
 						</form>
 					</div>
 				</div>

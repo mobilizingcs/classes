@@ -2,8 +2,8 @@ $(function(){
 
 	//these should correspond to name.xml files in the xml dir
 	var subjectcampaigns = {
-	    "science" : ["Trash", "TrashWarmUp"],
-	    "math" : ["Nutrition_v2", "Snack", "Height"],
+	    "algebra" : ["Trash", "TrashWarmUp"],
+	    "biology" : ["Nutrition_v2", "Snack", "Height"],
 	    "ecs" : ["Media", "Snack"],
 	    "ids" : ["FoodHabits", "PersonalityColor", "StressChill", "TimeUse", "TimePerception"]
 	};
@@ -318,4 +318,31 @@ $(function(){
 			});
 		});
 	});
+});
+
+$(function(){
+	//Months range from 0 to 11 in javascript!
+	var month = (new Date()).getMonth();
+	var day = (new Date()).getDate();
+	var year = (new Date()).getFullYear();
+
+	if(month < 5 || (month == 5 && day < 16)){
+		//up till June 15
+		$("#inputQuarter")
+			.append($("<option />").attr("value", year + ":Spring").text("Spring " + year))
+			.append($("<option />").attr("value", year + ":Summer").text("Summer " + year))
+			.append($("<option />").attr("value", year + ":Fall").text("Fall " + year));
+	} else if(month < 7){
+		//up till July 31
+		$("#inputQuarter")
+			.append($("<option />").attr("value", year + ":Summer").text("Summer " + year))
+			.append($("<option />").attr("value", year + ":Fall").text("Fall " + year))
+			.append($("<option />").attr("value", (year+1) + ":Spring").text("Spring " + (year+1)));
+	} else {
+		//rest of the year
+		$("#inputQuarter")
+			.append($("<option />").attr("value", year + ":Fall").text("Fall " + year))
+			.append($("<option />").attr("value", (year+1) + ":Spring").text("Spring " + (year+1)))
+			.append($("<option />").attr("value", (year+1) + ":Summer").text("Summer " + (year+1)));
+	}
 });
