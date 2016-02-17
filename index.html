@@ -78,12 +78,12 @@
 									<option value="demo">Other / Demo</option>
 								</select>
 							</div>
-							<div class="form-group" style="display:none">
+							<div class="form-group form-mobilize-only">
 								<label class="control-label" for="inputQuarter">Semester</label>
 								<select class="form-control" id="inputQuarter"></select>
 							</div>
 
-							<div class="form-group" style="display:none">
+							<div class="form-group form-mobilize-only">
 								<label class="control-label" for="inputPeriod">Period</label>
 								<select class="form-control" id="inputPeriod">
 									<option value="P1">P1</option>
@@ -96,21 +96,21 @@
 									<option value="P8">P8</option>
 								</select>
 							</div>							
-							<div id="class-name-group" class="form-group" style="display:none">
+							<div id="class-name-group" class="form-group form-generic-only">
 								<label class="control-label" for="inputClassName">Class Name</label>
-								<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="A unique name. Include for example a school/course name, year and teaching period."></span>
+								<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="A unique name. Include for example course/year/topic."></span>
 								<input class="form-control" id="inputClassName" placeholder="A short name">
 							</div>
 
 							<div class="form-group">
 								<label class="control-label" for="inputClassUrn">Class URN</label>
 								<input class="form-control" id="inputClassUrn" placeholder="A unique ID" disabled>
-							</div>							<div class="form-group demo-form-group">
-								<label class="control-label" for="inputClassUrn">Campaigns</label>
-								<div id="inputDemoCampaigns" class="input-group" style="display: none;"></div>
-								<p id="subjectCampaignList" class="help-block">Select a Curriculum...</p>
+							</div>							
+							<div class="form-group demo-form-group">
+								<label class="control-label" for="inputDemoCampaigns">Campaigns</label>
+								<div id="inputDemoCampaigns" class="input-group form-generic-only"></div>
+								<p id="subjectCampaignList" class="help-block form-mobilize-only">Select a Curriculum...</p>
 							</div>
-
 						</form>
 					</div>
 				</div>

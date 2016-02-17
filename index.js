@@ -23,17 +23,9 @@ $(function(){
 		var label = $("<label />").addClass("checkbox-inline").append(input).append(name).appendTo("#inputDemoCampaigns");
 	});	
 
-	$("#inputSubject").change(function(){
-		var curriculum = $(this).val();
-		if(curriculum == "demo") {
-			$("#inputDemoCampaigns").show();
-			$("#subjectCampaignList").hide();
-		} else {
-			$("#inputDemoCampaigns").hide();
-			$("#subjectCampaignList").show();
-			$("#subjectCampaignList").html(subjectcampaigns[curriculum].join(", "));			
-		}
-	});
+	//reset the curriculum select
+	$("#inputSubject").prop('selectedIndex',0).change(updateFormFields);
+	updateFormFields();
 
 	//globals
 	var userdata;
@@ -163,14 +155,48 @@ $(function(){
 		return str.toLowerCase().replace(/[^a-z0-9]/gi,'');
 	}
 
+	function makeURN(){
+		var curriculum = $("#inputSubject").val();
+		if(!curriculum) return "";
+		var org = userdata.organization ? urnify(userdata.organization + ":") : "";
+		var lastname = userdata.last_name ? urnify(userdata.last_name + ":") : "";	
+		if(curriculum == "demo") {
+			var classname = $("#inputClassName").val();
+			var year = (new Date).getFullYear() + ":";
+			return "urn:class:" + org + year + lastname + urnify(classname);
+		} else {
+			var semester = $("#inputQuarter").val().toLowerCase() + ":";
+			var period = $("#inputPeriod").val().toLowerCase();
+			var subject = curriculum + ":"
+			return "urn:class:" + org + semester + lastname + subject + period;
+		}
+	}
+
+	function updateFormFields(){
+		$("#curriculum-name-group").removeClass("has-error");
+		var curriculum = $("#inputSubject").val();
+		if(curriculum == "demo") {
+			$(".form-generic-only").show();
+			$(".form-mobilize-only").hide();
+		} else {
+			$(".form-generic-only").hide();
+			$(".form-mobilize-only").show();
+			if(!curriculum) return; 
+			$("#subjectCampaignList").html(subjectcampaigns[curriculum].join(", "));			
+		}
+		updateURN();
+	}
+
+	function updateURN(){
+		$("#inputClassUrn").val(makeURN());
+	}
+
 	//suggest URN
 	$("#inputClassName").on("keyup", function(){
-		var x = $(this).val();
-		var org = userdata.organization ? urnify(userdata.organization + ":") : "";
-		var lastname = userdata.last_name ? urnify(userdata.last_name + ":") : "";
-		var year = (new Date).getFullYear() + ":";
-		$("#inputClassUrn").val("urn:class:" + org + year + lastname + urnify(x));
+		updateURN();
+		if($(this).val()) $("#class-name-group").removeClass("has-error");
 	});
+	$(".form-mobilize-only").change(updateURN)
 
 	//validator
 	$("#inputClassUrn").on("keyup", function(){
@@ -183,23 +209,28 @@ $(function(){
 	$("#createbutton").on("click", function createclass(e){
 		var btn = $(this)
 		e.preventDefault();
-		var class_name = $("#inputClassName").val();
+		updateURN();		
 		var class_urn = $("#inputClassUrn").val();
 		var curriculum = $("#inputSubject").val();
 
-		class_name ?
-			$("#class-name-group").removeClass("has-error") :
-			$("#class-name-group").addClass("has-error");
+		if(!curriculum)
+			return $("#curriculum-name-group").addClass("has-error");
 
-		curriculum ?
-			$("#curriculum-name-group").removeClass("has-error") :
-			$("#curriculum-name-group").addClass("has-error");
-
-		if(!class_name || !curriculum) return;
-		
-		var campaigns = (curriculum == "demo") ?
-			$.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()}) :	
-			$.map(subjectcampaigns[curriculum], function(x){return x + ".xml"});
+		if(curriculum == "demo"){
+			var campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});
+			var class_name = $("#inputClassName").val();	
+			if(!class_name){
+				$("#class-name-group").addClass("has-error");
+				return;
+			} 
+		} else {
+			var campaigns = $.map(subjectcampaigns[curriculum], function(x){return x + ".xml"});
+			var subject = toTitleCase(curriculum);
+			var semester = $("#inputQuarter").val();
+			var period = $("#inputPeriod").val();
+			var lastname = toTitleCase(userdata.last_name);
+			var class_name = subject + " " + period + " " + lastname + " " + semester.replace(":", " ");
+		}
 
 		//try to create the new class
 		btn.attr("disabled", "disabled")
@@ -282,6 +313,7 @@ $(function(){
 		//get the users name and organization
 		oh.user.read({user:username}).done(function(data){
 			userdata = data[username];
+			console.log(userdata)
 			$("#subtitle").text(userdata.first_name + " " + userdata.last_name)
 
 			if(!(userdata.permissions.admin || userdata.permissions.can_setup_users)){
