@@ -21,7 +21,7 @@ $(function(){
 	$.each(democampaigns, function(xml, name){
 		var input = $("<input>").attr("type", "checkbox").attr("value", xml)
 		var label = $("<label />").addClass("checkbox-inline").append(input).append(name).appendTo("#inputDemoCampaigns");
-	});	
+	});
 
 	//reset the curriculum select
 	$("#inputSubject").prop('selectedIndex',0).change(updateFormFields);
@@ -129,7 +129,7 @@ $(function(){
 			"aoColumnDefs": [
 			{ 'bSortable': false, 'aTargets': [ 4, 5 ] },
 			{ 'bSearchable': false, 'aTargets': [ 4 ] },
-			{ 'bVisible' : false, 'aTargets' : [ 5 ] } 				
+			{ 'bVisible' : false, 'aTargets' : [ 5 ] }
 			]
 		});
 	}
@@ -159,7 +159,7 @@ $(function(){
 		var curriculum = $("#inputSubject").val();
 		if(!curriculum) return "";
 		var org = userdata.organization ? urnify(userdata.organization + ":") : "";
-		var lastname = userdata.last_name ? urnify(userdata.last_name + ":") : "";	
+		var lastname = userdata.last_name ? urnify(userdata.last_name + ":") : "";
 		if(curriculum == "demo") {
 			var classname = $("#inputClassName").val();
 			var year = (new Date).getFullYear() + ":";
@@ -185,7 +185,7 @@ $(function(){
 		} else {
 			$(".form-generic-only").hide();
 			$(".form-mobilize-only").show();
-			$("#subjectCampaignList").html(subjectcampaigns[curriculum].join(", "));			
+			$("#subjectCampaignList").html(subjectcampaigns[curriculum].join(", "));
 		}
 		updateURN();
 	}
@@ -212,7 +212,7 @@ $(function(){
 	$("#createbutton").on("click", function createclass(e){
 		var btn = $(this)
 		e.preventDefault();
-		updateURN();		
+		updateURN();
 		var class_urn = $("#inputClassUrn").val();
 		var curriculum = $("#inputSubject").val();
 
@@ -221,11 +221,11 @@ $(function(){
 
 		if(curriculum == "demo"){
 			var campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});
-			var class_name = $("#inputClassName").val();	
+			var class_name = $("#inputClassName").val();
 			if(!class_name){
 				$("#class-name-group").addClass("has-error");
 				return;
-			} 
+			}
 		} else {
 			var campaigns = $.map(subjectcampaigns[curriculum], function(x){return x + ".xml"});
 			var subject = toTitleCase(curriculum);
@@ -238,7 +238,7 @@ $(function(){
 		//try to create the new class
 		btn.attr("disabled", "disabled")
 		oh.class.create({
-			class_urn : class_urn, 
+			class_urn : class_urn,
 			class_name : class_name
 		}).done(function(){
 			//adding campaigns
@@ -319,12 +319,16 @@ $(function(){
 			console.log(userdata)
 			$("#subtitle").text(userdata.first_name + " " + userdata.last_name)
 
-			if(!(userdata.permissions.admin || userdata.permissions.can_setup_users)){
-				//message("You do not have user/setup privileges!")
-			}
-
-			if((userdata.permissions.admin || userdata.permissions.can_create_classes)){
-				$("#new_class_button").removeAttr("disabled");
+			var can_create = userdata.permissions.admin || (userdata.permissions.can_setup_users && userdata.permissions.can_create_classes);
+			$("#new_class_button").removeAttr("disabled")
+			if(!can_create){
+				$("#new_class_button").click(function(e){
+					e.preventDefault()
+					e.stopPropagation();
+					if(confirm("You currently do not have privileges to create new classes/users. Would you like to request such privileges?")){
+						window.location.replace("../request");
+					}
+				});
 			}
 
 			//get the classes that the user has access to
