@@ -2,9 +2,6 @@ $(function(){
 
 	//these should correspond to name.xml files in the xml dir
 	var subjectcampaigns = {
-	    "algebra" : ["Trash", "TrashWarmUp"],
-	    "biology" : ["Nutrition_v2", "Snack", "Height"],
-	    "ecs" : ["Media", "Snack"],
 	    "ids" : ["FoodHabits", "PersonalityColor", "StressChill", "TimeUse", "TimePerception"]
 	};
 
@@ -25,7 +22,6 @@ $(function(){
 
 	//reset the curriculum select
 	$("#inputSubject").prop('selectedIndex',0).change(updateFormFields);
-	updateFormFields();
 
 	//globals
 	var userdata;
@@ -316,7 +312,7 @@ $(function(){
 		//get the users name and organization
 		oh.user.read({user:username}).done(function(data){
 			userdata = data[username];
-			console.log(userdata)
+			updateFormFields();
 			$("#subtitle").text(userdata.first_name + " " + userdata.last_name)
 
 			var can_create = userdata.permissions.admin || (userdata.permissions.can_setup_users && userdata.permissions.can_create_classes);
@@ -338,7 +334,6 @@ $(function(){
 					addrow(urn, value)
 				});
 				initTable();
-
 				//expand function
 				$('#classtable').on('click', "tbody td:not('.buttontd')", function () {
 					var tr = $(this).parent()
