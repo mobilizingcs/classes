@@ -351,7 +351,7 @@ $(function(){
 			//get the classes that the user has access to
 			initTable();
 			buildusertable();
-			buildcampaigntable();
+			//buildcampaigntable();
 		});
 	});
 
@@ -388,6 +388,12 @@ $(function(){
 
 	var importdata;
 	$('#input-csv').on('fileloaded', function(event, file, previewId, index, reader) {
+		function toColumnName(num) {
+		  for (var ret = '', a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+		    ret = String.fromCharCode(parseInt((num % b) / a) + 65) + ret;
+		  }
+		  return ret;
+		}
 		$("#usertable tr").removeClass("success").removeClass("info");
 		parse_file(file, function(results){
 			importdata = results.data;
@@ -397,8 +403,11 @@ $(function(){
 			} else {
 				$("select.import_field").empty();
 				$("#import_email").append($("<option />"));
+				var menu_item_labels = fields.map( function( value, index ) {
+					return 'Column ' + toColumnName((index+1));
+				} );
 				$.each(fields, function(i, field){
-					$("select.import_field").append($("<option />").text(field).val(field));						
+					$("select.import_field").append($("<option />").text(menu_item_labels[i]).val(field));						
 				});
 				$("select.import_field").val("");
 				$(".import_field").removeAttr("disabled");
