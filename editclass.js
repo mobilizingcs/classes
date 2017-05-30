@@ -352,6 +352,11 @@ $(function(){
 			initTable();
 			buildusertable();
 			//buildcampaigntable();
+
+			var _prefix = me.split( '-' );
+			if( _prefix.length === 2 ) {
+				$("#import_prefix").val(_prefix[0] + '-');
+			}
 		});
 	});
 
