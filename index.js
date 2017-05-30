@@ -215,6 +215,8 @@ $(function(){
 		if(!curriculum)
 			return $("#curriculum-name-group").addClass("has-error");
 
+		var campaign_name_suffix = '';
+
 		if(curriculum == "demo"){
 			var campaigns = $.map($("#inputDemoCampaigns input:checked"), function(x){ return $(x).val()});
 			var class_name = $("#inputClassName").val();
@@ -229,6 +231,7 @@ $(function(){
 			var period = $("#inputPeriod").val();
 			var lastname = toTitleCase(userdata.last_name);
 			var class_name = subject + " " + period + " " + lastname + " " + semester.replace(":", " ");
+			campaign_name_suffix = " - " + class_name;
 		}
 
 		//try to create the new class
@@ -238,7 +241,7 @@ $(function(){
 			class_name : class_name
 		}).done(function(){
 			//adding campaigns
-			createCampaigns(class_urn, campaigns)
+			createCampaigns(class_urn, campaigns, campaign_name_suffix)
 		}).always(function(){
 			$('#myModal').modal('hide');
 			btn.removeAttr("disabled")
@@ -256,7 +259,7 @@ $(function(){
 		});
 	}
 
-	function createCampaigns(class_urn, campaigns){
+	function createCampaigns(class_urn, campaigns, campaign_name_suffix){
 		//download the xml files
 		var requests = $.map(campaigns, function(xmlfile){
 			return download_file("xml/" + xmlfile);
@@ -279,7 +282,7 @@ $(function(){
 						running_state : "running",
 						class_urn_list : class_urn,
 						campaign_urn : campaign_urn,
-						campaign_name : prettyname,
+						campaign_name : prettyname + campaign_name_suffix,
 						xml : xmlstr
 					});
 				} else {
