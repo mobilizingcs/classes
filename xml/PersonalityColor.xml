@@ -13,7 +13,7 @@
 					<displayLabel>Birth Gender</displayLabel>
 					<promptText>Is your biological gender male or female?</promptText>
 					<promptType>single_choice</promptType>
-					<skippable>false</skippable>
+					<skippable>true</skippable>
 					<properties>
 						<property>
 							<key>0</key>
