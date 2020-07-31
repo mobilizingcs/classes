@@ -356,6 +356,7 @@ $(function(){
 			var _prefix = me.split( '-' );
 			if( _prefix.length === 2 ) {
 				$("#import_prefix").val(_prefix[0] + '-');
+                                if(_prefix[0]==='mobilize'){ $("#import_prefix").val('lausd' + '-'); }
 			}
 		});
 	});
@@ -451,7 +452,7 @@ $(function(){
 				last_name_var : "lastname",
 				organization_var : "teacherorg",
 				id_var : "StudentCode",
-				prefix : "lausd"	
+				prefix : "lausd-"	
 			});
 			$("#importmodal").modal('hide');
 		});
