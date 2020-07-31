@@ -59,7 +59,7 @@
 
 		<div class="row">
 			<div class="panel-group" id="accordion" role="tablist">
-				<div class="panel panel-default">
+				<div class="panel panel-default"  style="display:none">
 					<div class="panel-heading" data-toggle="collapse" data-target="#collapseOne" role="tab">
 						<h4 class="panel-title">
 							<span class="glyphicon glyphicon-picture"></span>
@@ -99,7 +99,14 @@
 					<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel">
 						<div class="panel-body">
 							<div class="col-sm-6">
-								<form>
+Upload .csv student roster files with these columns<br>
+First Name<br>
+Last Name<br>
+User ID<br>
+Organization<br>
+<br>
+Or, Download a <a href="https://www.idsucla.org/wp-content/uploads/sampleroster.csv" target="_blank">sample</a> .csv, Edit, and Upload<br>
+<br>								<form>
 									<div class="form-group">
 										<input id="input-csv" type="file" accept=".csv,.CSV">
 									</div>
@@ -142,7 +149,11 @@
 									<div class="form-group">
 										<label class="col-sm-4 control-label">Prefix *</label>
 										<div class="col-sm-8">
-											<input type="text" class="form-control import_field" id="import_prefix" disabled value="lausd-">
+											<input type="text" class="form-control import_field" id="import_prefix" disabled value="">
+enter a prefix for your student accounts<br>
+e.g. lausd- for LA Unified School District<br>
+ See a <a href="//www.idsucla.org/introduction-to-data-science-partnership#Prefix" target="_blank">list</a> of Schools District and Schools<br>
+
 										</div>
 									</div>					
 									<button id="importbutton" class="btn btn-primary pull-right import_field" disabled><span class="glyphicon glyphicon-import"></span> Import Users!</button>
