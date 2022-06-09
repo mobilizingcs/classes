@@ -301,7 +301,7 @@
                     <displayLabel>Television</displayLabel>
                     <promptText>How many MINUTES did you spend watching television (including streaming)?</promptText>
                     <default>0</default>
-                    <condition>activities == 10</condition>
+                    <condition>activities == 8</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -324,7 +324,7 @@
                     <displayLabel>Videogames</displayLabel>
                     <promptText>How many MINUTES did you spend playing video games?</promptText>
                     <default>0</default>
-                    <condition>activities == 11</condition>
+                    <condition>activities == 9</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -347,7 +347,7 @@
                     <displayLabel>Sports</displayLabel>
                     <promptText>How many MINUTES did you spend participating in sports/exercise/physical activity?</promptText>
                     <default>0</default>
-                    <condition>activities == 12</condition>
+                    <condition>activities == 10</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -370,7 +370,7 @@
                     <displayLabel>Read</displayLabel>
                     <promptText>How many MINUTES did you spend reading (not for class)?</promptText>
                     <default>0</default>
-                    <condition>activities == 13</condition>
+                    <condition>activities == 11</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -390,8 +390,10 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>communicate</id>
-                    <displayLabel>communicate</displayLabel>
+                    <displayLabel>Communicating</displayLabel>
                     <promptText>How many MINUTES did you spend communicating (includes texting, emails, video and voice calls)?</promptText>
+                    <default>0</default>
+                    <condition>activities == 12</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -411,8 +413,10 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>socialize</id>
-                    <displayLabel>socialize</displayLabel>
+                    <displayLabel>Socializing</displayLabel>
                     <promptText>How many MINUTES did you spend socializing (outside of class, in person)?</promptText>
+                    <default>0</default>
+                    <condition>activities == 13</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -432,8 +436,10 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>spiritual</id>
-                    <displayLabel>spiritual</displayLabel>
+                    <displayLabel>Spiritual</displayLabel>
                     <promptText>How many MINUTES did you spend on a spiritual activity?</promptText>
+                    <default>0</default>
+                    <condition>activities == 14</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -452,9 +458,11 @@
                 </prompt>
                 <prompt>
                     <promptType>number</promptType>
-                    <id>purchases</id>
+                    <id>Purchasing</id>
                     <displayLabel>purchases</displayLabel>
                     <promptText>How many MINUTES did you spend purchasing items online or in a store?</promptText>
+                    <default>0</default>
+                    <condition>activities == 15</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -474,8 +482,10 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>extra</id>
-                    <displayLabel>extra</displayLabel>
+                    <displayLabel>Extracurricular</displayLabel>
                     <promptText>How many MINUTES did you spend on hobbies/volunteering/leisure/extra-curricular activities (excluding sports and physical activity)?</promptText>
+                    <default>0</default>
+                    <condition>activities == 16</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
@@ -495,8 +505,10 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>social_media</id>
-                    <displayLabel>social_media</displayLabel>
+                    <displayLabel>Social Media</displayLabel>
                     <promptText>How many MINUTES did you spend on social media?</promptText>
+                    <default>0</default>
+                    <condition>activities == 17</condition>
                     <skippable>false</skippable>
                     <properties>
                         <property>
