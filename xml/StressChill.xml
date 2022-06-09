@@ -4,7 +4,7 @@
 			<id>stresschill</id>
 			<title>Stress Chill</title>
 			<description>Measure your stress/chill level</description>
-			<introText>Set an alarm to go off twice at random times.  Repeat for four days.</introText>
+			<introText>Set an alarm to go off as directed by your teacher. Repeat as instructed.</introText>
 			<submitText>Click on the green button to submit your data.</submitText>
 			<anytime>true</anytime>
 			<contentList>
