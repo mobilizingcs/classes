@@ -5,7 +5,7 @@
 			<title>Stress Chill</title>
 			<description>Measure your stress/chill level</description>
 			<introText>Set an alarm to go off twice at random times.  Repeat for four days.</introText>
-			<submitText>Thanks.</submitText>
+			<submitText>Click on the green button to submit your data.</submitText>
 			<anytime>true</anytime>
 			<contentList>
 				<prompt>
