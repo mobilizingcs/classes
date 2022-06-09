@@ -1,233 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <campaign>
-	<surveys>
-		<survey>
-			<id>personalitycolor</id>
-			<title>Personality Color</title>
-			<description>Share the data from the results of your True Colors personality test plus other information about you.</description>
-			<submitText>Thanks! Your response has been submitted.</submitText>
-			<anytime>true</anytime>
-			<contentList>
-
-				<prompt>
-					<id>birth_gender</id>
-					<displayLabel>Birth Gender</displayLabel>
-					<promptText>Is your biological gender male or female?</promptText>
-					<promptType>single_choice</promptType>
-					<skippable>true</skippable>
-					<skipLabel>Skip</skipLabel>
-					<properties>
-						<property>
-							<key>0</key>
-							<label>Female</label>
-						</property>
-						<property>
-							<key>1</key>
-							<label>Male</label>
-						</property>
-					</properties>
-				</prompt>
-
-				<prompt>
-					<id>p_color</id>
-					<displayLabel>Predominant Color</displayLabel>
-					<promptText>Enter your predominant personality color.</promptText>
-					<promptType>single_choice</promptType>
-					<properties>
-						<property>
-							<key>0</key>
-							<label>Gold</label>
-						</property>
-						<property>
-							<key>1</key>
-							<label>Green</label>
-						</property>
-						<property>
-							<key>2</key>
-							<label>Orange</label>
-						</property>
-						<property>
-							<key>3</key>
-							<label>Blue</label>
-						</property>
-					</properties>
-					<skippable>false</skippable>
-					<skipLabel>Skip</skipLabel>
-				</prompt>
-
-				<prompt>
-					<id>s_color</id>
-					<displayLabel>Secondary Color</displayLabel>
-					<promptText>Enter your secondary personality color.</promptText>
-					<promptType>single_choice</promptType>
-					<properties>
-						<property>
-							<key>0</key>
-							<label>Gold</label>
-						</property>
-						<property>
-							<key>1</key>
-							<label>Green</label>
-						</property>
-						<property>
-							<key>2</key>
-							<label>Orange</label>
-						</property>
-						<property>
-							<key>3</key>
-							<label>Blue</label>
-						</property>
-					</properties>
-					<skippable>false</skippable>
-					<skipLabel>Skip</skipLabel>
-				</prompt>
-				
-				<prompt>
-					<id>orange</id>
-					<displayLabel>Total orange score</displayLabel>
-					<promptText>Enter the total score for orange.</promptText>
-					<promptType>number</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>min</key>
-							<label>5</label>
-						</property>
-						<property>
-							<key>max</key>
-							<label>20</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>green</id>
-					<displayLabel>Total green score</displayLabel>
-					<promptText>Enter the total score for green.</promptText>
-					<promptType>number</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>min</key>
-							<label>5</label>
-						</property>
-						<property>
-							<key>max</key>
-							<label>20</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>gold</id>
-					<displayLabel>Total gold score</displayLabel>
-					<promptText>Enter the total score for gold.</promptText>
-					<promptType>number</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>min</key>
-							<label>5</label>
-						</property>
-						<property>
-							<key>max</key>
-							<label>20</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>blue</id>
-					<displayLabel>Total blue score</displayLabel>
-					<promptText>Enter the total score for blue.</promptText>
-					<promptType>number</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>min</key>
-							<label>5</label>
-						</property>
-						<property>
-							<key>max</key>
-							<label>20</label>
-						</property>
-					</properties>
-				</prompt>
-
-				<prompt>
-					<id>zodiac</id>
-					<displayLabel>Zodiac sign</displayLabel>
-					<promptText>What is your zodiac sign?</promptText>
-					<promptType>single_choice</promptType>
-					<properties>
-						<property>
-							<key>0</key>
-							<label>Aquarius</label>
-						</property>
-						<property>
-							<key>1</key>
-							<label>Pisces</label>
-						</property>
-						<property>
-							<key>2</key>
-							<label>Aries</label>
-						</property>
-						<property>
-							<key>3</key>
-							<label>Taurus</label>
-						</property>	
-						<property>	
-							<key>4</key>
-							<label>Gemini</label>
-						</property>
-						<property>
-							<key>5</key>
-							<label>Cancer</label>
-						</property>
-						<property>
-							<key>6</key>
-							<label>Leo</label>
-						</property>
-						<property>
-							<key>7</key>
-							<label>Virgo</label>
-						</property>
-						<property>
-							<key>8</key>
-							<label>Libra</label>
-						</property>
-						<property>
-							<key>9</key>
-							<label>Scorpio</label>
-						</property>
-						<property>
-							<key>10</key>
-							<label>Sagittarius</label>
-						</property>
-						<property>
-							<key>11</key>
-							<label>Capricorn</label>
-						</property>
-					</properties>
-					<skippable>false</skippable>
-					<skipLabel>Skip</skipLabel>
-				</prompt>
-				
-				<prompt>
-					<id>sport</id>
-					<displayLabel>Sports activity</displayLabel>
-					<promptText>Are you involved in sports?</promptText>
-					<promptType>single_choice</promptType>
-					<properties>
-						<property>
-							<key>0</key>
-							<label>Yes</label>
-						</property>
-						<property>
-							<key>1</key>
-							<label>No</label>
-						</property>
-					</properties>
-					<skippable>false</skippable>
-					<skipLabel>Skip</skipLabel>
-				</prompt>
-			</contentList>
-		</survey>
-	</surveys>
+    <surveys>
+        <survey>
+            <id>personalitycolor</id>
+            <title>Personality Color</title>
+            <description>Share the data from the results of your True Colors personality test plus other information about you.</description>
+            <submitText>Thanks! Your response has been submitted.</submitText>
+            <anytime>true</anytime>
+            <contentList>
+                <prompt>
+                    <promptType>single_choice</promptType>
+                    <id>int_ext</id>
+                    <displayLabel>Personality Type</displayLabel>
+                    <promptText>Are you mostly an introvert (turn to your own mind to recharge) or an extrovert (seek other people for energy)?</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>0</key>
+                            <label>Introvert</label>
+                        </property>
+                        <property>
+                            <key>1</key>
+                            <label>Extrovert</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>single_choice</promptType>
+                    <id>p_color</id>
+                    <displayLabel>Predominant Color</displayLabel>
+                    <promptText>Enter your predominant personality color.</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>0</key>
+                            <label>Gold</label>
+                        </property>
+                        <property>
+                            <key>1</key>
+                            <label>Green</label>
+                        </property>
+                        <property>
+                            <key>2</key>
+                            <label>Orange</label>
+                        </property>
+                        <property>
+                            <key>3</key>
+                            <label>Blue</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>single_choice</promptType>
+                    <id>s_color</id>
+                    <displayLabel>Secondary Color</displayLabel>
+                    <promptText>Enter your secondary personality color.</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>0</key>
+                            <label>Gold</label>
+                        </property>
+                        <property>
+                            <key>1</key>
+                            <label>Green</label>
+                        </property>
+                        <property>
+                            <key>2</key>
+                            <label>Orange</label>
+                        </property>
+                        <property>
+                            <key>3</key>
+                            <label>Blue</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>number</promptType>
+                    <id>orange</id>
+                    <displayLabel>Total orange score</displayLabel>
+                    <promptText>Enter the total score for orange.</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>min</key>
+                            <label>5</label>
+                        </property>
+                        <property>
+                            <key>max</key>
+                            <label>20</label>
+                        </property>
+                        <property>
+                            <key>wholeNumber</key>
+                            <label>true</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>number</promptType>
+                    <id>green</id>
+                    <displayLabel>Total green score</displayLabel>
+                    <promptText>Enter the total score for green.</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>min</key>
+                            <label>5</label>
+                        </property>
+                        <property>
+                            <key>max</key>
+                            <label>20</label>
+                        </property>
+                        <property>
+                            <key>wholeNumber</key>
+                            <label>true</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>number</promptType>
+                    <id>gold</id>
+                    <displayLabel>Total gold score</displayLabel>
+                    <promptText>Enter the total score for gold.</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>min</key>
+                            <label>5</label>
+                        </property>
+                        <property>
+                            <key>max</key>
+                            <label>20</label>
+                        </property>
+                        <property>
+                            <key>wholeNumber</key>
+                            <label>true</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>number</promptType>
+                    <id>blue</id>
+                    <displayLabel>Total blue score</displayLabel>
+                    <promptText>Enter the total score for blue.</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>min</key>
+                            <label>5</label>
+                        </property>
+                        <property>
+                            <key>max</key>
+                            <label>20</label>
+                        </property>
+                        <property>
+                            <key>wholeNumber</key>
+                            <label>true</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>single_choice</promptType>
+                    <id>sport</id>
+                    <displayLabel>Sports activity</displayLabel>
+                    <promptText>Are you involved in sports?</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>0</key>
+                            <label>Yes</label>
+                        </property>
+                        <property>
+                            <key>1</key>
+                            <label>No</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>single_choice</promptType>
+                    <id>SuperPower</id>
+                    <displayLabel>Super Power</displayLabel>
+                    <promptText>Which of the super powers would you most like to have? </promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>0</key>
+                            <label>Invisibility</label>
+                        </property>
+                        <property>
+                            <key>1</key>
+                            <label>Telepathy (read minds)</label>
+                        </property>
+                        <property>
+                            <key>2</key>
+                            <label>Freeze Time</label>
+                        </property>
+                        <property>
+                            <key>3</key>
+                            <label>Super Strength</label>
+                        </property>
+                        <property>
+                            <key>4</key>
+                            <label>Fly</label>
+                        </property>
+                    </properties>
+                </prompt>
+            </contentList>
+        </survey>
+    </surveys>
 </campaign>
