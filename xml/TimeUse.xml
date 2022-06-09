@@ -5,7 +5,7 @@
             <id>timeuse</id>
             <title>Time Use</title>
             <description>This survey asks you questions about the activities you've participated in during a 5 day period.</description>
-            <submitText>Thank you for filling out the survey!</submitText>
+            <submitText>Click on the green button to submit your data.</submitText>
             <anytime>true</anytime>
             <contentList>
                 <prompt>
