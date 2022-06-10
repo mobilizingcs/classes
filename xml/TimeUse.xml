@@ -5,7 +5,7 @@
             <id>timeuse</id>
             <title>Time Use</title>
             <description>This survey asks you questions about the activities you've participated in during a 5 day period.</description>
-            <submitText>Click on the green button to submit your data.</submitText>
+            <submitText>Thank you for filling out the survey!</submitText>
             <anytime>true</anytime>
             <contentList>
                 <prompt>
@@ -390,7 +390,7 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>communicate</id>
-                    <displayLabel>Communicating</displayLabel>
+                    <displayLabel>communicate</displayLabel>
                     <promptText>How many MINUTES did you spend communicating (includes texting, emails, video and voice calls)?</promptText>
                     <default>0</default>
                     <condition>activities == 12</condition>
@@ -413,7 +413,7 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>socialize</id>
-                    <displayLabel>Socializing</displayLabel>
+                    <displayLabel>socialize</displayLabel>
                     <promptText>How many MINUTES did you spend socializing (outside of class, in person)?</promptText>
                     <default>0</default>
                     <condition>activities == 13</condition>
@@ -436,7 +436,7 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>spiritual</id>
-                    <displayLabel>Spiritual</displayLabel>
+                    <displayLabel>spiritual</displayLabel>
                     <promptText>How many MINUTES did you spend on a spiritual activity?</promptText>
                     <default>0</default>
                     <condition>activities == 14</condition>
@@ -458,7 +458,7 @@
                 </prompt>
                 <prompt>
                     <promptType>number</promptType>
-                    <id>Purchasing</id>
+                    <id>purchases</id>
                     <displayLabel>purchases</displayLabel>
                     <promptText>How many MINUTES did you spend purchasing items online or in a store?</promptText>
                     <default>0</default>
@@ -482,7 +482,7 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>extra</id>
-                    <displayLabel>Extracurricular</displayLabel>
+                    <displayLabel>extra</displayLabel>
                     <promptText>How many MINUTES did you spend on hobbies/volunteering/leisure/extra-curricular activities (excluding sports and physical activity)?</promptText>
                     <default>0</default>
                     <condition>activities == 16</condition>
@@ -505,7 +505,7 @@
                 <prompt>
                     <promptType>number</promptType>
                     <id>social_media</id>
-                    <displayLabel>Social Media</displayLabel>
+                    <displayLabel>social_media</displayLabel>
                     <promptText>How many MINUTES did you spend on social media?</promptText>
                     <default>0</default>
                     <condition>activities == 17</condition>
