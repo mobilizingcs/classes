@@ -4,7 +4,7 @@
 			<id>timeexp</id>
 			<title>Time Perception</title>
 			<description>Use this survey to record your time perception data</description>
-			<submitText>Thank you for filling out the survey!</submitText>
+			<submitText>Click on the green button to submit your data.</submitText>
 			<anytime>true</anytime>
 			<summaryText>Time Perception Survey</summaryText>
 			<contentList>
