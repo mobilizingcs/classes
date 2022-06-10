@@ -42,7 +42,7 @@
 				<prompt>
 					<id>howmanypeople</id>
 					<displayLabel>How many people?</displayLabel>
-					<promptText>How many people are you with (not counting yourself) up-to 107,282?</promptText>
+					<promptText>How many people are you with (not counting yourself)?</promptText>
 					<promptType>number</promptType>
 					<skippable>false</skippable>
 					<properties>
