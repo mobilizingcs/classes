@@ -240,7 +240,7 @@
                     <properties>
                         <property>
                             <key>1</key>
-                            <label>Less than $1</label>
+                            <label>$0 to &lt; $1</label>
                         </property>
                         <property>
                             <key>2</key>
