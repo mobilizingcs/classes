@@ -1,157 +1,134 @@
 <campaign>
-	<surveys>
-		<survey>
-			<id>stresschill</id>
-			<title>Stress Chill</title>
-			<description>Measure your stress/chill level</description>
-			<introText>Set an alarm to go off as directed by your teacher. Repeat as instructed.</introText>
-			<submitText>Click on the green button to submit your data.</submitText>
-			<anytime>true</anytime>
-			<contentList>
-				<prompt>
-					<id>photo</id>
-					<displayLabel>Photo</displayLabel>
-					<promptText>Take a photo of what you're doing right now.</promptText>
-					<promptType>photo</promptType>
-					<skippable>true</skippable>
-					<skipLabel>Skip</skipLabel>
-					<properties>
-						<property>
-							<key>maxDimension</key>
-							<label>800</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>stress</id>
-					<displayLabel>Stress</displayLabel>
-					<promptText>How stressed are you feeling right now (3 is very stressed, 0 not stressed at all)?</promptText>
-					<promptType>number</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>min</key>
-							<label>0</label>
-						</property>
-						<property>
-							<key>max</key>
-							<label>3</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>howmanypeople</id>
-					<displayLabel>How many people?</displayLabel>
-					<promptText>How many people are you with (not counting yourself) up-to 107,282?</promptText>
-					<promptType>number</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>min</key>
-							<label>0</label>
-						</property>
-						<property>
-							<key>max</key>
-							<label>107282</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>who</id>
-					<displayLabel>Who</displayLabel>
-					<promptText>Who are you with?</promptText>
-					<promptType>single_choice</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>0</key>
-							<label>alone</label>
-						</property>
-						<property>
-							<key>1</key>
-							<label>friends</label>
-						</property>
-						<property>
-							<key>2</key>
-							<label>family</label>
-						</property>
-						<property>
-							<key>3</key>
-							<label>friends and family</label>
-						</property>
-						<property>
-							<key>4</key>
-							<label>classmates</label>
-						</property>
-						<property>
-							<key>5</key>
-							<label>teacher</label>
-						</property>
-						<property>
-							<key>6</key>
-							<label>teacher and classmates</label>
-						</property>
-						<property>
-							<key>7</key>
-							<label>strangers</label>
-						</property>
-						<property>
-							<key>8</key>
-							<label>coworkers</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>where</id>
-					<displayLabel>Where</displayLabel>
-					<promptText>Where are you?</promptText>
-					<promptType>single_choice</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>0</key>
-							<label>school</label>
-						</property>
-						<property>
-							<key>1</key>
-							<label>work</label>
-						</property>
-						<property>
-							<key>2</key>
-							<label>home</label>
-						</property>
-						<property>
-							<key>3</key>
-							<label>public place</label>
-						</property>
-						<property>
-							<key>4</key>
-							<label>other's house</label>
-						</property>
-						<property>
-							<key>5</key>
-							<label>commuting</label>
-						</property>
-					</properties>
-				</prompt>
-				<prompt>
-					<id>why</id>
-					<displayLabel>Why</displayLabel>
-					<promptText>Why are you here (in one word)?</promptText>
-					<promptType>text</promptType>
-					<skippable>false</skippable>
-					<properties>
-						<property>
-							<key>min</key>
-							<label>3</label>
-						</property>
-						<property>
-							<key>max</key>
-							<label>200</label>
-						</property>
-					</properties>
-				</prompt>
-			</contentList>
-		</survey>
-	</surveys>
+    <surveys>
+        <survey>
+            <id>stresschill</id>
+            <title>Stress Chill</title>
+            <description>Measure your stress/chill level</description>
+            <submitText>Click on the green button to submit your data.</submitText>
+            <anytime>true</anytime>
+            <contentList>
+                <prompt>
+                    <promptType>single_choice</promptType>
+                    <id>where</id>
+                    <displayLabel>Where</displayLabel>
+                    <promptText>Where are you?</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>0</key>
+                            <label>school</label>
+                        </property>
+                        <property>
+                            <key>1</key>
+                            <label>work</label>
+                        </property>
+                        <property>
+                            <key>2</key>
+                            <label>home</label>
+                        </property>
+                        <property>
+                            <key>3</key>
+                            <label>public place</label>
+                        </property>
+                        <property>
+                            <key>4</key>
+                            <label>other's house</label>
+                        </property>
+                        <property>
+                            <key>5</key>
+                            <label>commuting</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>text</promptType>
+                    <id>why</id>
+                    <displayLabel>Why</displayLabel>
+                    <promptText>Why are you here (in one word)?</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>min</key>
+                            <label>3</label>
+                        </property>
+                        <property>
+                            <key>max</key>
+                            <label>200</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>number</promptType>
+                    <id>howmanypeople</id>
+                    <displayLabel>How many people?</displayLabel>
+                    <promptText>How many people are you with (not counting yourself)?</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>min</key>
+                            <label>0</label>
+                        </property>
+                        <property>
+                            <key>max</key>
+                            <label>10000</label>
+                        </property>
+                        <property>
+                            <key>wholeNumber</key>
+                            <label>true</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>single_choice</promptType>
+                    <id>who</id>
+                    <displayLabel>Who</displayLabel>
+                    <promptText>Who are you with?</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>0</key>
+                            <label>alone</label>
+                        </property>
+                        <property>
+                            <key>1</key>
+                            <label>friends and/or family</label>
+                        </property>
+                        <property>
+                            <key>2</key>
+                            <label>teachers and classmates</label>
+                        </property>
+                        <property>
+                            <key>3</key>
+                            <label>strangers</label>
+                        </property>
+                        <property>
+                            <key>4</key>
+                            <label>coworkers</label>
+                        </property>
+                    </properties>
+                </prompt>
+                <prompt>
+                    <promptType>number</promptType>
+                    <id>stress</id>
+                    <displayLabel>Stress</displayLabel>
+                    <promptText>How stressed are you feeling right now (3 is very stressed, 0 not stressed at all)?</promptText>
+                    <skippable>false</skippable>
+                    <properties>
+                        <property>
+                            <key>min</key>
+                            <label>0</label>
+                        </property>
+                        <property>
+                            <key>max</key>
+                            <label>3</label>
+                        </property>
+                        <property>
+                            <key>wholeNumber</key>
+                            <label>true</label>
+                        </property>
+                    </properties>
+                </prompt>
+            </contentList>
+        </survey>
+    </surveys>
 </campaign>
